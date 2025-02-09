@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.MainFragment">
+
+
+    <ImageView
+        android:id="@+id/imgNoticiero"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/logonoticiero_btn"
+        android:padding="@dimen/default_logo_padding"/>
+
+    <TextView
+        android:id="@+id/tvToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
+        android:layout_margin="@dimen/default_padding"
+        android:textSize="@dimen/default_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="@dimen/default_padding"
+        />
+    <TextView
+        android:id="@+id/tvSelectProvider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/selectYourNewsProvider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToday"
+        android:layout_margin="@dimen/default_padding"
+        android:textSize="@dimen/default_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="@dimen/default_padding"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectProvider">
+    <ImageView
+        android:id="@+id/imgLaRazon"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/larazon_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <ImageView
+        android:id="@+id/imgElEspanol"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/elespanol_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgLaRazon"
+        />
+    <ImageView
+        android:id="@+id/imgABC"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/abc_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgElEspanol"
+        />
+    <ImageView
+        android:id="@+id/imgLaVanguardia"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/lavanguardia_btn"
+        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <ImageView
+        android:id="@+id/imgElMundo"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/elmundo_btn"
+        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
+        app:layout_constraintStart_toEndOf="@id/imgLaVanguardia"
+        />
+    <ImageView
+        android:id="@+id/imgElPais"
+        android:layout_width="@dimen/default_news_logo_btn"
+        android:layout_height="@dimen/default_news_logo_btn"
+        android:src="@drawable/elpais_btn"
+        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
+        app:layout_constraintStart_toEndOf="@id/imgElMundo"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

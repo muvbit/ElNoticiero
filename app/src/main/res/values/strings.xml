@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ElNoticiero</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="section">"Section: "</string>
+    <string name="author">"Author: "</string>
+    <string name="selectYourNewsProvider">"Get Today's News: Choose Your Free Source!"</string>
+    <string name="todayIs">"Today is "</string>
+    <string name="category">"Category: "</string>
+</resources>

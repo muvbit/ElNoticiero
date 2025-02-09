@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.muvbit.elnoticiero.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                app:argType="string"
+                android:name="newsUrl"/>
+            <argument
+                app:argType="integer"
+                android:name="newsLogo"/>
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_detailedNewsFragment"
+            app:destination="@id/detailedNewsFragment">
+            <argument
+            android:name="news"
+            app:argType="com.muvbit.elnoticiero.model.News" />
+        </action>
+        <argument
+            android:name="newsUrl"
+            app:argType="string" />
+        <argument
+            android:name="newsLogo"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+    android:id="@+id/detailedNewsFragment"
+    android:name="com.muvbit.elnoticiero.fragments.DetailedNewsFragment"
+    android:label="fragment_detailed_news"
+    tools:layout="@layout/fragment_detailed_news" >
+    <argument
+        android:name="news"
+        app:argType="com.muvbit.elnoticiero.model.News" />
+</fragment>
+</navigation>
