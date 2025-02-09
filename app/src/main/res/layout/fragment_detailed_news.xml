@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_margin="@dimen/default_padding"
+    android:background="@color/white"
     tools:context=".fragments.DetailedNewsFragment">
     <ScrollView
         android:layout_width="match_parent"
