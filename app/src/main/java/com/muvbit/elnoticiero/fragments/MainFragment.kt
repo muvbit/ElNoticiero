@@ -61,6 +61,11 @@ class MainFragment : Fragment() {
             val action = MainFragmentDirections.actionMainFragmentToNewsFragment(newsUrl,R.drawable.elespanol_logo)
             findNavController().navigate(action)
         }
+        binding.imgLevanteEMV.setOnClickListener {
+            val newsUrl = "https://www.levante-emv.com/"
+            val action = MainFragmentDirections.actionMainFragmentToNewsFragment(newsUrl,R.drawable.levanteemv_logo)
+            findNavController().navigate(action)
+        }
     }
     private fun getCurrentDate(): String {
         val calendar = GregorianCalendar()

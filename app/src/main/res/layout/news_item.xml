@@ -12,12 +12,12 @@
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/default_padding">
             <ImageView
                 android:id="@+id/newsImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +30,11 @@
                 android:layout_height="wrap_content"
                 tools:text="TITULO DE PRUEBA"
                 android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="7pt"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newsImage"
-                android:maxLines="2"
                 />
             <TextView
                 android:id="@+id/newsSummary"
@@ -42,7 +42,10 @@
                 android:layout_height="wrap_content"
                 tools:text="Esto es un texto de prueba para poder visualizar el contenido del resumen de la noticia"
                 android:maxLines="3"
+                android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@+id/newsTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
