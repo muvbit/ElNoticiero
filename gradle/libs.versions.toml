@@ -24,6 +24,12 @@ cardview = "1.0.0"
 coordinatorlayout = "1.2.0"
 androidxNavigationSafeargsKotlinGradlePlugin = "2.9.0-alpha05"
 androidxNavigationSafeargsGradlePlugin = "2.9.0-alpha05"
+roomRuntime = "2.6.1"
+roomCompiler = "2.6.1"
+roomKtx = "2.6.1"
+lifecycleViewmodelKtx = "2.8.7"
+lifecycleLivedataKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +55,12 @@ androidx-cardview = { group = "androidx.cardview", name = "cardview", version.re
 androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
 androidx-androidx-navigation-safeargs-kotlin-gradle-plugin = { group = "androidx.navigation.safeargs.kotlin", name = "androidx.navigation.safeargs.kotlin.gradle.plugin", version.ref = "androidxNavigationSafeargsKotlinGradlePlugin" }
 androidx-androidx-navigation-safeargs-gradle-plugin = { group = "androidx.navigation.safeargs", name = "androidx.navigation.safeargs.gradle.plugin", version.ref = "androidxNavigationSafeargsGradlePlugin" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

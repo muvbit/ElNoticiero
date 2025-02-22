@@ -14,6 +14,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding">
+            <TextView
+                android:id="@+id/tvDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tvDate"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/date"
+                />
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"
+                tools:text="22/02/2025"
+                />
             <ImageView
                 android:id="@+id/newsImage"
                 android:layout_width="match_parent"
@@ -21,7 +38,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate"
                 tools:src="@drawable/ic_launcher_background"
                 />
             <TextView

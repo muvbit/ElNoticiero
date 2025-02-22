@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.muvbit.elnoticiero.MainActivity
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.FragmentMainBinding
 import java.text.SimpleDateFormat
@@ -28,6 +29,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Obtener la actividad principal
+        val activityMain=requireActivity() as MainActivity
+        val activityMainBinding=activityMain.binding
+
+        activityMainBinding.bottomNav.menu.clear()
 
         binding.tvToday.text=getCurrentDate()
 

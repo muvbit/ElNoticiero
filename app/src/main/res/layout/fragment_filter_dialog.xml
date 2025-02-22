@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de inicio (YYYY-MM-DD)"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de fin (YYYY-MM-DD)"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/etNewsNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de noticias"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/etCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="País (ej: es, us)" />
+
+    <EditText
+        android:id="@+id/etLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Idioma (ej: es, en)" />
+
+    <TextView
+        android:id="@+id/tvRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Radio: 10 km" />
+
+    <SeekBar
+        android:id="@+id/sbRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="200"
+        android:progress="10" />
+
+    <CheckBox
+        android:id="@+id/cbUseLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Usar ubicación" />
+
+    <Button
+        android:id="@+id/btnGetCurrentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obtener mi ubicación" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <Button
+        android:id="@+id/btnApplyFilters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aplicar Filtros" />
+
+</LinearLayout>

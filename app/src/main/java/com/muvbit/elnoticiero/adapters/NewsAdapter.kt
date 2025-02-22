@@ -13,26 +13,6 @@ import com.muvbit.elnoticiero.model.News
 
 class NewsAdapter(private var newsList: List<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    class NewsViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(news: News) {
-            Log.d("NewsViewHolder", "bind called for news: ${news.title}")
-            Log.d("NewsViewHolder", "Summary: ${news.summary}")
-            Log.d("NewsViewHolder", "Image URL: ${news.urlImage}")
-            binding.newsTitle.text = news.title
-            binding.newsSummary.text = news.summary
-
-            Glide.with(binding.root.context) //PARA CARGAR LA IMAGEN
-                .load(news.urlImage)
-                .into(binding.newsImage)
-
-            binding.cardView.setOnClickListener {
-                val action = NewsFragmentDirections.actionNewsFragmentToDetailedNewsFragment(news)
-                binding.root.findNavController().navigate(action)
-            }
-        }
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = NewsItemBinding.inflate(inflater, parent, false)
@@ -51,5 +31,28 @@ class NewsAdapter(private var newsList: List<News>) : RecyclerView.Adapter<NewsA
     fun updateNewsList(newList: List<News>) {
         newsList = newList
         notifyDataSetChanged()
+    }
+
+    class NewsViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(news: News) {
+            Log.d("NewsViewHolder", "bind called for news: ${news.title}")
+            Log.d("NewsViewHolder", "Summary: ${news.summary}")
+            Log.d("NewsViewHolder", "Image URL: ${news.urlImage}")
+            Log.d("NewsViewHolder", "Date: ${news.publishedAt}")
+            binding.newsTitle.text = news.title
+            binding.newsSummary.text = news.summary
+            binding.tvDate.text = news.publishedAt
+
+
+            Glide.with(binding.root.context) //PARA CARGAR LA IMAGEN
+                .load(news.urlImage)
+                .into(binding.newsImage)
+
+            binding.cardView.setOnClickListener {
+                val action = NewsFragmentDirections.actionNewsFragmentToDetailedNewsFragment(news)
+                binding.root.findNavController().navigate(action)
+            }
+        }
+
     }
 }

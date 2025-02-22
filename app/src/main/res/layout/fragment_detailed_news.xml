@@ -4,96 +4,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_margin="@dimen/default_padding"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".fragments.DetailedNewsFragment">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/default_padding"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvCategoryTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/category"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvCategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/tvCategoryTitle"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Politics" />
 
-        <ImageView
-            android:id="@+id/articleImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="@dimen/default_padding"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/tvCategory"
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/tvCategoryTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Politics" />
+            <TextView
+                android:id="@+id/tvDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tvDate"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/date"
+                />
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"
+                tools:text="22/02/2025"
+                />
 
-            />
+            <ImageView
+                android:id="@+id/articleImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="@dimen/default_padding"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@id/tvCategory"
 
-        <TextView
-            android:id="@+id/tvArticleTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/articleImage"
-            tools:text="ESTO ES UN TITULO DE PRUEBA" />
+            <TextView
+                android:id="@+id/tvArticleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 
-        <TextView
-            android:id="@+id/tvAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/author"
-            app:layout_constraintEnd_toStartOf="@id/tvAuthorName"
-            app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleImage"
+                tools:text="ESTO ES UN TITULO DE PRUEBA" />
 
-        <TextView
-            android:id="@+id/tvAuthorName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle"
-            tools:text="Fulanito"
-            android:textStyle="bold"
-            />
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/author"
+                app:layout_constraintEnd_toStartOf="@id/tvAuthorName"
+                app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle" />
 
-        <TextView
-            android:id="@+id/tvArticleBody"
-            android:layout_marginTop="@dimen/default_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAuthorName"
-            tools:text="Esto es un texto de pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            android:padding="@dimen/default_padding"
+            <TextView
+                android:id="@+id/tvAuthorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle"
+                tools:text="Fulanito" />
 
-            />
+            <TextView
+                android:id="@+id/tvArticleBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:padding="@dimen/default_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAuthorName"
+                tools:text="Esto es un texto de pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

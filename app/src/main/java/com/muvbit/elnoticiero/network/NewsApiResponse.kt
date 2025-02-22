@@ -16,7 +16,7 @@ data class NewsApiData(
     val text: String = "",
     @SerializedName("author")
     val author: String = "",
-    @SerializedName("published_date")
+    @SerializedName("publish_date")
     val publishedAt: String = "",
     @SerializedName("url")
     val url: String = "",

@@ -1,16 +1,17 @@
 package com.muvbit.elnoticiero.fragments
 
 import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.text.color
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.muvbit.elnoticiero.MainActivity
+import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.adapters.NewsAdapter
 import com.muvbit.elnoticiero.databinding.FragmentNewsBinding
 import com.muvbit.elnoticiero.model.News
@@ -23,12 +24,14 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
     private lateinit var newsAdapter: NewsAdapter
     val args: NewsFragmentArgs by navArgs()
+    private var newsSource: String? = null
+    private var isFilterDialogVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,31 +41,78 @@ class NewsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N) //COMPATIBLE CON LAS FECHAS
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.imgNewsLogo.setImageResource(args.newsLogo)
-        fetchNews()
+        newsSource = args.newsUrl
+
+        //Obtener la actividad principal
+        val mainActivity = requireActivity() as MainActivity
+        val mainActivityBinding = mainActivity.binding
+
+        mainActivityBinding.bottomNav.menu.clear()
+        mainActivityBinding.bottomNav.inflateMenu(R.menu.bottom_menu)
+
+        mainActivityBinding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.filter -> {
+                    showFilterDialog()
+                    true
+                }
+
+                R.id.clear_filters -> {
+                    fetchNews(newsSource = newsSource)
+                    true
+                }
+
+                else -> false
+            }
+        }
+        fetchNews(
+            newsSource = newsSource,
+            fechaInicio = getCurrentDate(),
+            fechaFinal = null,
+            numeroNoticias = "10",
+            pais = null,
+            lengua = "es",
+            coordenadas = null
+        )
     }
 
     private fun setupRecyclerView(newsList: List<News>) {
         Log.d("NewsFragment", "setupRecyclerView called with list size: ${newsList.size}") // Add this log
-        newsAdapter = NewsAdapter(newsList)
-        binding.newsRecyclerView.apply {
-            adapter = newsAdapter
+        if (!newsList.isEmpty()) {
+            newsAdapter = NewsAdapter(newsList)
+            binding.newsRecyclerView.apply {
+                adapter = newsAdapter
+            }
+        } else {
+            binding.newsCenterMessage.text=getString(R.string.no_news_found)
+            binding.imgNoNews.visibility=View.VISIBLE
         }
     }
 
-    private fun fetchNews() {
-
-        val newsSource = args.newsUrl // RECOGEMOS LA URL DEL PERIODICO
-
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun fetchNews(
+        newsSource: String? = null,
+        fechaInicio: String? = null,
+        fechaFinal: String? = null,
+        numeroNoticias: String? = null,
+        pais: String? = null,
+        lengua: String? = null,
+        coordenadas: String? = null
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitInstance.apiService.getNews(
-                    number = "10",
+                    number = numeroNoticias,
                     newsSources = newsSource,
-                    earliestPublishDate = getCurrentDate(),
-                    language = "es"
+                    earliestPublishDate = fechaInicio,
+                    latestPublishDate = fechaFinal,
+                    language = lengua,
+                    sourceCountries = pais,
+                    locationFilter = coordenadas
                 )
 
                 if (response.isSuccessful) {
@@ -90,6 +140,7 @@ class NewsFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun getCurrentDate(): String { // PARA RECOGER LA FECHA ACTUAL, ASÍ LA INSERTAMOS EN EL CAMPO DEL GET PARA OBTENER LAS NOTICIAS DE HOY.
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -104,7 +155,7 @@ class NewsFragment : Fragment() {
             text = newsApiData.text ?: "Sin descripción",
             authors = newsApiData.author ?: "Desconocido",
             category = newsApiData.category,
-            date = newsApiData.publishedAt ?: "Fecha desconocida",
+            publishedAt = newsApiData.publishedAt ?: "Fecha desconocida",
             urlImage = newsApiData.imageUrl ?: ""
         )
     }
@@ -112,5 +163,39 @@ class NewsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showFilterDialog() {
+        if (!isFilterDialogVisible) {
+            isFilterDialogVisible = true
+            val dialog = FilterDialogFragment()
+            dialog.setListener(this)
+            dialog.show(childFragmentManager, "FilterDialogFragment")
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onFiltersApplied(
+        startDate: String?,
+        endDate: String?,
+        newsNumber: String?,
+        country: String?,
+        language: String?,
+        coordinates: String?
+    ) {
+        isFilterDialogVisible = false
+        fetchNews(
+            newsSource = newsSource,
+            fechaInicio = startDate,
+            fechaFinal = endDate,
+            numeroNoticias = newsNumber,
+            pais = country,
+            lengua = language,
+            coordenadas = coordinates
+        )
+    }
+
+    override fun onDialogDismissed() {
+        isFilterDialogVisible = false
     }
 }
