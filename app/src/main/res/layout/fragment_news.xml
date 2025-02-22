@@ -29,7 +29,6 @@
        android:textAllCaps="true"
        android:textStyle="bold"
        tools:text="@string/no_news_found"
-       android:elevation="@dimen/default_padding"
        />
    <ImageView
        android:id="@+id/imgNoNews"
@@ -39,7 +38,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/newsCenterMessage"
        android:src="@drawable/dissatisfied_24"
-       android:elevation="@dimen/default_padding"
        android:visibility="invisible"
 
        />
