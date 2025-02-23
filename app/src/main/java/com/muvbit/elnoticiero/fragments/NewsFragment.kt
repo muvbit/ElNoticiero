@@ -52,7 +52,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
         val mainActivityBinding = mainActivity.binding
 
         mainActivityBinding.bottomNav.menu.clear()
-        mainActivityBinding.bottomNav.inflateMenu(R.menu.bottom_menu)
+        mainActivityBinding.bottomNav.inflateMenu(R.menu.bottom_news_menu)
 
         mainActivityBinding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {

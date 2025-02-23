@@ -14,6 +14,8 @@
     <string name="date">"Date: "</string>
     <string name="retrievingNews">Wait a moment please.\nRetrieving news as you request...</string>
     <string name="favorites">Favorite News</string>
+    <string name="clearFilters">Clear Filters</string>
+    <string name="filter">Filter</string>
 
 
 </resources>

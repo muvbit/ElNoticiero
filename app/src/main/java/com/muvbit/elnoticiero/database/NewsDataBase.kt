@@ -4,21 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.muvbit.elnoticiero.model.FavoriteNews
+import com.muvbit.elnoticiero.model.News
 
-@Database(entities = [FavoriteNews::class], version = 2, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun favoriteNewsDao(): FavoriteNewsDao
+@Database(entities = [News::class], version = 1, exportSchema = false)
+abstract class NewsDatabase : RoomDatabase() {
+    abstract fun NewsDao(): NewsDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: NewsDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): NewsDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                   NewsDatabase::class.java,
                     "app_database"
                 )
                     .fallbackToDestructiveMigration()

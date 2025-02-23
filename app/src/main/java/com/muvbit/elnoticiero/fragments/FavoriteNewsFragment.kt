@@ -11,22 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.adapters.FavoriteNewsAdapter
-import com.muvbit.elnoticiero.database.AppDatabase
-import com.muvbit.elnoticiero.database.FavoriteNewsRepository
+import com.muvbit.elnoticiero.database.NewsDatabase
+import com.muvbit.elnoticiero.database.NewsRepository
 import com.muvbit.elnoticiero.databinding.FragmentFavoriteNewsBinding
-import com.muvbit.elnoticiero.model.FavoriteNews
 import com.muvbit.elnoticiero.model.News
 import kotlinx.coroutines.launch
-import kotlin.collections.addAll
-import kotlin.text.clear
+
 
 class FavoriteNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoriteNewsBinding
 
     private lateinit var newsAdapter: FavoriteNewsAdapter
-    private lateinit var favoriteNewsRepository: FavoriteNewsRepository
-    private var favoriteNewsList: MutableList<FavoriteNews> = mutableListOf()
+    private lateinit var favoriteNewsRepository: NewsRepository
+    private var favoriteNewsList: MutableList<News> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +46,8 @@ class FavoriteNewsFragment : Fragment() {
         mainActivityBinding.bottomNav.inflateMenu(R.menu.bottom_favorite_menu)
 
         //BASE DE DATOS
-        val appDatabase = AppDatabase.getDatabase(requireContext())
-        favoriteNewsRepository = FavoriteNewsRepository(appDatabase.favoriteNewsDao())
+        val appDatabase = NewsDatabase.getDatabase(requireContext())
+        favoriteNewsRepository = NewsRepository(appDatabase.NewsDao())
 
         binding.favoriteNewsRecyclerView.layoutManager = LinearLayoutManager(context)
         /*
@@ -80,14 +78,11 @@ class FavoriteNewsFragment : Fragment() {
     }
     private fun loadFavoriteNews() {
         lifecycleScope.launch {
-            favoriteNewsRepository.getAllFavoriteNews().collect { favoriteNewsList ->
-                this@FavoriteNewsFragment.favoriteNewsList.clear()
-                this@FavoriteNewsFragment.favoriteNewsList.addAll(favoriteNewsList)
-                val newsList = favoriteNewsList.map { mapFavoriteNewsToNews(it) }
-                setupRecyclerView(newsList)
+            favoriteNewsList = favoriteNewsRepository.getAllFavoriteNews().toMutableList()
+            setupRecyclerView(favoriteNewsList)
             }
         }
-    }
+
 
     private fun setupRecyclerView(newsList: List<News>) {
         Log.d("FavoriteNewsFragment", "setupRecyclerView called with list size: ${newsList.size}")
@@ -102,17 +97,6 @@ class FavoriteNewsFragment : Fragment() {
         }
     }
 
-    private fun mapFavoriteNewsToNews(favoriteNews: FavoriteNews): News {
-        return News(
-            title = favoriteNews.title,
-            summary = favoriteNews.summary,
-            text = favoriteNews.text,
-            authors = favoriteNews.authors,
-            category = favoriteNews.category,
-            publishedAt = favoriteNews.date,
-            urlImage = favoriteNews.urlImage
-        )
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

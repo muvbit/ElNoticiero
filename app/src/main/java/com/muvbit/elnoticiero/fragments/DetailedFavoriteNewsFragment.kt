@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
+import com.muvbit.elnoticiero.database.NewsDatabase
+import com.muvbit.elnoticiero.database.NewsRepository
 import com.muvbit.elnoticiero.databinding.FragmentDetailedNewsBinding
+import kotlinx.coroutines.launch
 
 class DetailedFavoriteNewsFragment : Fragment() {
 
@@ -19,7 +24,7 @@ class DetailedFavoriteNewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentDetailedNewsBinding.inflate(inflater, container, false)
+        binding = FragmentDetailedNewsBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -27,19 +32,41 @@ class DetailedFavoriteNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get the database instance
+        val db = NewsDatabase.getDatabase(requireContext())
+        // Get the DAO instance
+        val favoriteNewsDao = db.NewsDao()
+        // Get the repository instance
+        var favoriteNewsRepository = NewsRepository(favoriteNewsDao)
+
         //Obtener la actividad principal para acceder al BottomNav
         val mainActivity = requireActivity() as MainActivity
         val mainActivityBinding = mainActivity.binding
         mainActivityBinding.bottomNav.menu.clear()
+        mainActivityBinding.bottomNav.inflateMenu(R.menu.bottom_favorite_detailed_menu)
 
-        binding.tvArticleTitle.text=args.news.title
-        binding.tvAuthorName.text=args.news.authors
-        binding.tvCategory.text=args.news.category
-        binding.tvArticleBody.text=args.news.text
-        binding.tvDate.text=args.news.publishedAt
+        binding.tvArticleTitle.text = args.news.title
+        binding.tvAuthorName.text = args.news.authors
+        binding.tvCategory.text = args.news.category
+        binding.tvArticleBody.text = args.news.text
+        binding.tvDate.text = args.news.publishedAt
         Glide.with(this).load(args.news.urlImage).into(binding.articleImage)
 
+        mainActivityBinding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.favoriteDelete -> {
+                    lifecycleScope.launch {
+                    favoriteNewsRepository.delete(args.news)
+                    }
+                    true
+                }
 
+                else -> false
+
+            }
+
+
+        }
     }
-
 }
+

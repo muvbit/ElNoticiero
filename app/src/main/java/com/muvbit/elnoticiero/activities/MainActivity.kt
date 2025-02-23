@@ -1,5 +1,6 @@
 package com.muvbit.elnoticiero.activities
 
+import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,10 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ActivityMainBinding
+import com.muvbit.elnoticiero.databinding.NavHeaderBinding
+import java.text.SimpleDateFormat
+import java.util.GregorianCalendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -35,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         // Get the NavController
         navController = navHostFragment.navController
 
+
+
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
@@ -52,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        updateNavHeader()
 
 
         binding.drawerToggle.setOnClickListener {
@@ -65,6 +73,18 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    fun updateNavHeader(){
+        val navHeader=navigationView.getHeaderView(0)
+        val navHeaderBinding : NavHeaderBinding = NavHeaderBinding.bind(navHeader)
+        navHeaderBinding.navDate.text=getCurrentDate()
+    }
+
+    private fun getCurrentDate(): String {
+        val calendar = GregorianCalendar()
+        val dateFormat = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(calendar.time)
+        return formattedDate
+    }
     fun openDrawer() {
         drawerLayout.openDrawer(GravityCompat.START)
     }

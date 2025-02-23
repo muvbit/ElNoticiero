@@ -35,6 +35,19 @@ class MainFragment : Fragment() {
         val activityMainBinding=activityMain.binding
 
         activityMainBinding.bottomNav.menu.clear()
+        activityMainBinding.bottomNav.inflateMenu(R.menu.bottom_main_menu)
+        activityMainBinding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.myFavorites -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_favoriteNewsFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
 
         binding.tvToday.text=getCurrentDate()
 
@@ -68,24 +81,12 @@ class MainFragment : Fragment() {
             val action = MainFragmentDirections.actionMainFragmentToNewsFragment(newsUrl,R.drawable.elespanol_logo)
             findNavController().navigate(action)
         }
-        binding.imgLevanteEMV.setOnClickListener {
-            val newsUrl = "https://www.levante-emv.com/"
-            val action = MainFragmentDirections.actionMainFragmentToNewsFragment(newsUrl,R.drawable.levanteemv_logo)
-            findNavController().navigate(action)
-        }
     }
     private fun getCurrentDate(): String {
         val calendar = GregorianCalendar()
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault())
-        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-        val dayOfMonthWithSuffix = when (dayOfMonth) {
-            1, 21, 31 -> "${dayOfMonth}st"
-            2, 22 -> "${dayOfMonth}nd"
-            3, 23 -> "${dayOfMonth}rd"
-            else -> "${dayOfMonth}th"
-        }
         val formattedDate = dateFormat.format(calendar.time)
-        return formattedDate.replaceFirst(Regex("\\d{1,2}"), dayOfMonthWithSuffix)
+        return formattedDate
     }
 
     override fun onDestroyView() {
