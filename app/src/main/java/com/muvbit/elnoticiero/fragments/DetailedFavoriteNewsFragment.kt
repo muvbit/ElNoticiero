@@ -1,13 +1,17 @@
 package com.muvbit.elnoticiero.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.database.NewsDatabase
@@ -31,6 +35,8 @@ class DetailedFavoriteNewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val news = args.news
+        val navController= Navigation.findNavController(requireView())
 
         // Get the database instance
         val db = NewsDatabase.getDatabase(requireContext())
@@ -56,7 +62,15 @@ class DetailedFavoriteNewsFragment : Fragment() {
             when (item.itemId) {
                 R.id.favoriteDelete -> {
                     lifecycleScope.launch {
-                    favoriteNewsRepository.delete(args.news)
+                        AlertDialog.Builder(this@DetailedFavoriteNewsFragment.requireContext()).setMessage(R.string.areYouSureDeleteFromFavorites)
+                            .setPositiveButton("Sí") { _, _ ->
+                                lifecycleScope.launch {
+                                    favoriteNewsRepository.deleteByIdNews(news.idNews?: "")
+                                    Log.d("DetailedNewsFragment", "News deleted from favorites: ${news.title}")
+                                    Snackbar.make(binding.root, getString(R.string.news_deleted_from_favorites), Snackbar.LENGTH_SHORT).show()}
+                                     navController.popBackStack() //Atrás en el navegation graph y así cerramos el fragment.
+                            }
+                            .setNegativeButton("No", null).show()
                     }
                     true
                 }

@@ -84,6 +84,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
         Log.d("NewsFragment", "setupRecyclerView called with list size: ${newsList.size}") // Add this log
         if (!newsList.isEmpty()) {
             newsAdapter = NewsAdapter(newsList)
+            binding.newsCenterMessage.visibility=View.GONE
             binding.newsRecyclerView.apply {
                 adapter = newsAdapter
             }
@@ -136,6 +137,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
                 }
             } catch (e: Exception) {
                 Log.e("NewsFragment", "Exception: ${e.message}")
+                binding.newsCenterMessage.text=getString(R.string.server_no_response)
             }
         }
     }
@@ -150,6 +152,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
     private fun mapNewsApiDataToNews(newsApiData: NewsApiData): News {
         Log.d("NewsFragment", "Mapping news: ${newsApiData.title} - ${newsApiData.publishedAt}")
         return News(
+            idNews = newsApiData.idNews ?: "",
             title = newsApiData.title ?: "Sin título",
             summary = newsApiData.summary ?: "Sin resumen",
             text = newsApiData.text ?: "Sin descripción",

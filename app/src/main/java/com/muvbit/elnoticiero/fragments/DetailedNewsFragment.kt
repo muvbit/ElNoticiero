@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.database.NewsDatabase
@@ -72,14 +74,21 @@ class DetailedNewsFragment : Fragment() {
         binding.imgFavorite.setOnClickListener {
             lifecycleScope.launch {
                 if (isFavorite) {
-                    // Remove from favorites
-                    favoriteNewsRepository.delete(news)
-                    Log.d("DetailedNewsFragment", "News deleted from favorites: ${news.title}")
-                    isFavorite = false
+                    // ELIMIAR DE FAVORITOS
+                    AlertDialog.Builder(this@DetailedNewsFragment.requireContext()).setMessage(R.string.areYouSureDeleteFromFavorites)
+                        .setPositiveButton("Sí") { _, _ ->
+                            lifecycleScope.launch {
+                             favoriteNewsRepository.deleteByIdNews(news.idNews?: "")
+                            Log.d("DetailedNewsFragment", "News deleted from favorites: ${news.title}")
+                            isFavorite = false
+                            Snackbar.make(binding.root, getString(R.string.news_deleted_from_favorites), Snackbar.LENGTH_SHORT).show()}
+                        }
+                            .setNegativeButton("No", null).show()
                 } else {
                     // Add to favorites
                     favoriteNewsRepository.insert(news)
                     Log.d("DetailedNewsFragment", "News added to favorites: ${news.title}")
+                    Snackbar.make(binding.root, getString(R.string.news_added_to_favorites), Snackbar.LENGTH_SHORT).show()
                     isFavorite = true
                 }
                 updateFavoriteIcon()

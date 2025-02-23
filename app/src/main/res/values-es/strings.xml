@@ -1,9 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home">Home</string>
-    <string name="settings">Settings</string>
-    <string name="date">"Date: "</string>
-    <string name="retrievingNews">Wait a moment please.\\nRetrieving news as request...</string>
-    <string name="favorites">Favorite News</string>
-    <string name="filter">Filter</string>
+    <string name="app_name">ElNoticiero</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="section">"Sección: "</string>
+    <string name="author">"Autor: "</string>
+    <string name="selectYourNewsProvider">"Las noticias de hoy!: Elige tu proveedor de noticias!"</string>
+    <string name="todayIs">"Hoy es "</string>
+    <string name="category">"Categoría: "</string>
+    <string name="home">Inicio</string>
+    <string name="settings">Configuración</string>
+    <string name="no_news_found">Lo siento, no se han encontrado noticias.\nPor favor, inténtalo de nuevo más tarde.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">"Fecha: "</string>
+    <string name="retrievingNews">Espera por favor.\nBuscando noticias...</string>
+    <string name="favorites">Noticias favoritas</string>
+    <string name="clearFilters">Limpiar filtros</string>
+    <string name="filter">Filtrar</string>
+    <string name="news_deleted_from_favorites">Noticia eliminada de favoritos.</string>
+    <string name="news_added_to_favorites">Noticia agregada a favoritos.</string>
+    <string name="all_news_deleted_from_favorites">Todas las noticias han sido eliminadas de favoritos.</string>
+    <string name="yes">Yes</string>
+    <string name="areYouSureDeleteAllFavorites">¿Estás seguro de que quieres eliminar todas las noticias de tus favoritos?</string>
+    <string name="no">No</string>
+    <string name="server_no_response">Error: El servidor no está disponible.\nPor favor, inténtalo de nuevo más tarde.</string>
+    <string name="areYouSureDeleteFromFavorites">¿Estás seguro de que quieres eliminar esta noticia de tus favoritos?</string>
 </resources>

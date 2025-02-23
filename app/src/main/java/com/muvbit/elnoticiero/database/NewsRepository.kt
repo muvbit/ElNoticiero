@@ -28,4 +28,9 @@ class NewsRepository(private val newsDao: NewsDao) {
         newsDao.deleteAllFavoriteNews()
     }
 
+    suspend fun deleteByIdNews(idNews: String) {
+        newsDao.deleteByIdNews(idNews)
+
+    }
+
 }

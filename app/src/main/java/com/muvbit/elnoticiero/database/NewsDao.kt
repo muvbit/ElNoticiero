@@ -16,6 +16,9 @@ interface NewsDao {
     @Delete
     suspend fun delete(favoriteNews: News)
 
+    @Query("DELETE FROM news WHERE idNews = :idNews")
+    suspend fun deleteByIdNews(idNews: String)
+
     @Query("SELECT * FROM news")
     suspend fun getAllFavoriteNews(): List<News>
 
