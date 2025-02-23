@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.muvbit.elnoticiero.MainActivity
+import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.FragmentMainBinding
 import java.text.SimpleDateFormat

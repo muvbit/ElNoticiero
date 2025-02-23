@@ -97,6 +97,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle"
                 tools:text="Fulanito" />
 
+            <ImageView
+                android:id="@+id/imgFavorite"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:src="@drawable/unfavorite_icon"
+                app:layout_constraintTop_toBottomOf="@id/tvArticleTitle"
+                app:layout_constraintStart_toStartOf="@id/articleImage"
+                />
+
             <TextView
                 android:id="@+id/tvArticleBody"
                 android:layout_width="match_parent"
@@ -104,9 +114,8 @@
                 android:layout_marginTop="@dimen/default_padding"
                 android:padding="@dimen/default_padding"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAuthorName"
+                app:layout_constraintTop_toBottomOf="@+id/imgFavorite"
                 tools:text="Esto es un texto de pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

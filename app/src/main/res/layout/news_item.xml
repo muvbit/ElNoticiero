@@ -64,6 +64,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
+            <ImageView
+                android:id="@+id/imgDeleteMe"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/deleteme_24"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

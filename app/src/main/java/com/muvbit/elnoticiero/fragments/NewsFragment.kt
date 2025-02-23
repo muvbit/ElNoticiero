@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.muvbit.elnoticiero.MainActivity
+import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.adapters.NewsAdapter
 import com.muvbit.elnoticiero.databinding.FragmentNewsBinding

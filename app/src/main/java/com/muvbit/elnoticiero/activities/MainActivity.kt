@@ -1,4 +1,4 @@
-package com.muvbit.elnoticiero
+package com.muvbit.elnoticiero.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,9 +8,8 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,31 +26,39 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        drawerLayout=binding.mainDrawer
-        navigationView=binding.navigation
+        drawerLayout = binding.mainDrawer
+        navigationView = binding.navigation
 
         // Get the NavHostFragment
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         // Get the NavController
         navController = navHostFragment.navController
 
-        navigationView.setNavigationItemSelectedListener {
-            menuItem -> when (menuItem.itemId) {
-                    R.id.nav_home -> {
-                        navController.navigate(R.id.mainFragment)
-                        drawerLayout.closeDrawer(GravityCompat.START)
-                        true
-                    }
-                    else -> false
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    navController.navigate(R.id.mainFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
                 }
+
+                R.id.nav_favorites -> {
+                    navController.navigate(R.id.favoriteNewsFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                else -> false
             }
+        }
 
 
-        binding.drawerToggle.setOnClickListener{
+        binding.drawerToggle.setOnClickListener {
             openDrawer()
         }
 
-        }// Close onCreate
+    }// Close onCreate
 
     // Handle back button presses
     override fun onSupportNavigateUp(): Boolean {

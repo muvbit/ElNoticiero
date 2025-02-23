@@ -8,6 +8,8 @@ data class NewsApiResponse(
 )
 
 data class NewsApiData(
+    @SerializedName("id")
+    val idNews: String = "",
     @SerializedName("title")
     val title: String = "",
     @SerializedName("summary")

@@ -18,12 +18,15 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim">
             <argument
-                app:argType="string"
-                android:name="newsUrl"/>
+                android:name="newsUrl"
+                app:argType="string" />
             <argument
-                app:argType="integer"
-                android:name="newsLogo"/>
+                android:name="newsLogo"
+                app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_mainFragment_to_favoriteNewsFragment"
+            app:destination="@id/favoriteNewsFragment" />
 
     </fragment>
 
@@ -36,8 +39,8 @@
             android:id="@+id/action_newsFragment_to_detailedNewsFragment"
             app:destination="@id/detailedNewsFragment">
             <argument
-            android:name="news"
-            app:argType="com.muvbit.elnoticiero.model.News" />
+                android:name="news"
+                app:argType="com.muvbit.elnoticiero.model.News" />
         </action>
         <argument
             android:name="newsUrl"
@@ -51,15 +54,37 @@
     </fragment>
 
     <fragment
-    android:id="@+id/detailedNewsFragment"
-    android:name="com.muvbit.elnoticiero.fragments.DetailedNewsFragment"
-    android:label="fragment_detailed_news"
-    tools:layout="@layout/fragment_detailed_news" >
-    <argument
-        android:name="news"
-        app:argType="com.muvbit.elnoticiero.model.News" />
+        android:id="@+id/detailedNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.DetailedNewsFragment"
+        android:label="fragment_detailed_news"
+        tools:layout="@layout/fragment_detailed_news">
+        <argument
+            android:name="news"
+            app:argType="com.muvbit.elnoticiero.model.News" />
         <action
             android:id="@+id/action_detailedNewsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.FavoriteNewsFragment"
+        android:label="fragment_favorite_news"
+        tools:layout="@layout/fragment_favorite_news">
+        <action
+            android:id="@+id/action_favoriteNewsFragment_to_detailedFavoriteNewsFragment"
+            app:destination="@id/detailedFavoriteNewsFragment">
+            <argument
+                android:name="news"
+                app:argType="com.muvbit.elnoticiero.model.News" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailedFavoriteNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.DetailedFavoriteNewsFragment"
+        android:label="fragment_detailed_favorite_news"
+        tools:layout="@layout/fragment_detailed_favorite_news">
+        <argument
+            android:name="news"
+            app:argType="com.muvbit.elnoticiero.model.News" />
     </fragment>
 </navigation>
