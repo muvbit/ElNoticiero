@@ -10,40 +10,40 @@
         android:id="@+id/etStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de inicio (YYYY-MM-DD)"
+        android:hint="@string/start_date"
         android:inputType="date" />
 
     <EditText
         android:id="@+id/etEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de fin (YYYY-MM-DD)"
+        android:hint="@string/end_date"
         android:inputType="date" />
 
     <EditText
         android:id="@+id/etNewsNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Número de noticias"
+        android:hint="@string/numberArticles"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/etCountry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="País (ej: es, us)" />
+        android:hint="@string/countryParameter" />
 
     <EditText
         android:id="@+id/etLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Idioma (ej: es, en)" />
+        android:hint="@string/languageParameter" />" />
 
     <TextView
         android:id="@+id/tvRadius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Radio: 10 km" />
+        android:text="@string/radiusParameter" />
 
     <SeekBar
         android:id="@+id/sbRadius"
@@ -56,14 +56,14 @@
         android:id="@+id/cbUseLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="Usar ubicación" />
+        android:checked="false"
+        android:text="@string/useLocation" />
 
     <Button
         android:id="@+id/btnGetCurrentLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Obtener mi ubicación" />
+        android:text="@string/getMyLocation" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mapFragment"
@@ -75,6 +75,6 @@
         android:id="@+id/btnApplyFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aplicar Filtros" />
+        android:text="@string/applyFilters" />
 
 </LinearLayout>

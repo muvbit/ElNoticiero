@@ -24,4 +24,15 @@
     <string name="no">No</string>
     <string name="server_no_response">Error: El servidor no está disponible.\nPor favor, inténtalo de nuevo más tarde.</string>
     <string name="areYouSureDeleteFromFavorites">¿Estás seguro de que quieres eliminar esta noticia de tus favoritos?</string>
+    <string name="myLocation">Mi ubicación</string>
+    <string name="locationSelected">Ubicación seleccionada</string>
+    <string name="start_date">Fecha de inicio (YYYY-MM-DD)</string>
+    <string name="end_date">Latest date (YYYY-MM-DD)</string>
+    <string name="numberArticles">Núm. artículos máx.</string>
+    <string name="countryParameter">País (ej: es, us)</string>
+    <string name="languageParameter">Idioma (ej: es, en)</string>
+    <string name="radiusParameter">Radio: 10 km</string>
+    <string name="useLocation">Usar ubicación</string>
+    <string name="getMyLocation">Obtener mi ubicación</string>
+    <string name="applyFilters">Aplicar filtros</string>
 </resources>

@@ -24,4 +24,15 @@
     <string name="no">No</string>
     <string name="server_no_response">Error: Server unavailable.\nPlease, try again in few moments.</string>
     <string name="areYouSureDeleteFromFavorites">Are you sure to delete this news from your favorites?</string>
+    <string name="myLocation">My location</string>
+    <string name="locationSelected">Location selected</string>
+    <string name="start_date">Earliest date (YYYY-MM-DD)</string>
+    <string name="end_date">Latest date (YYYY-MM-DD)</string>
+    <string name="numberArticles">Max news</string>
+    <string name="countryParameter">Country (ex: es, us)</string>
+    <string name="languageParameter">Languaje (ex: es, en)</string>
+    <string name="radiusParameter">Radius: 10 km</string>
+    <string name="useLocation">Use location</string>
+    <string name="getMyLocation">Get my location</string>
+    <string name="applyFilters">Apply filters</string>
 </resources>

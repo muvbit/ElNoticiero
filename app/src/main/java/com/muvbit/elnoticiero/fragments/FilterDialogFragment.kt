@@ -27,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.FragmentFilterDialogBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -44,7 +45,7 @@ class FilterDialogFragment : DialogFragment(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
     private var currentMarker: Marker? = null
     private var radius: Int = 10
-    private var useLocation: Boolean = true
+    private var useLocation: Boolean = false
 
     interface FilterDialogListener {
         fun onFiltersApplied(
@@ -162,7 +163,7 @@ class FilterDialogFragment : DialogFragment(), OnMapReadyCallback {
             .addOnSuccessListener { location: Location? ->
                 location?.let {
                     val currentLatLng = LatLng(it.latitude, it.longitude)
-                    updateMapLocation(currentLatLng, "Mi ubicación")
+                    updateMapLocation(currentLatLng, getString(R.string.myLocation))
                 }
             }
     }
@@ -196,7 +197,7 @@ class FilterDialogFragment : DialogFragment(), OnMapReadyCallback {
         updateMapLocation(valencia, "Valencia")
 
         googleMap?.setOnMapClickListener { latLng ->
-            updateMapLocation(latLng, "Ubicación seleccionada")
+            updateMapLocation(latLng, getString(R.string.locationSelected))
         }
     }
 
