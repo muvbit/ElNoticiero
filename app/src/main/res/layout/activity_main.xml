@@ -45,6 +45,9 @@
             app:menu="@menu/bottom_main_menu"
             app:itemRippleColor="@android:color/transparent"
             app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@color/bottom_nav_item_colors"
+            app:itemTextColor="@color/bottom_nav_item_colors"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
             >
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/drawerToggle"

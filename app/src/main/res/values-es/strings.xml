@@ -49,4 +49,5 @@
     <string name="newsDateSummary">Selecciona la fecha más antigua a mostrar</string>
     <string name="default_user_name">Usuario</string>
     <string name="hello">"Hola "</string>
+    <string name="noFavoriteNews">No hay noticias guardadas como favoritas.</string>
 </resources>
