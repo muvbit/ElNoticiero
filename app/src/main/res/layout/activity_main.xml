@@ -45,24 +45,24 @@
             app:menu="@menu/bottom_main_menu"
             app:itemRippleColor="@android:color/transparent"
             app:itemBackground="@android:color/transparent"
-            />
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/drawerToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/bottomNav"
-            app:layout_constraintTop_toTopOf="@id/bottomNav"
-            app:layout_constraintStart_toStartOf="@id/bottomNav"
-            app:layout_constraintEnd_toEndOf="@+id/bottomNav"
-            android:layout_margin="@dimen/default_padding"
-            app:backgroundTint="@color/white"
-            android:src="@drawable/hamburger_24"
-            />
+            >
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/drawerToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/white"
+                android:src="@drawable/hamburger_24"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:elevation="8dp"
+                />
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
-        android:maxWidth="200dp"
+        android:maxWidth="220dp"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="150dp"
         android:layout_width="wrap_content"

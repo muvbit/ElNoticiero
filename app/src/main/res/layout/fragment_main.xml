@@ -20,18 +20,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/logonoticiero_btn"
         android:padding="@dimen/default_logo_padding"/>
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
+        android:layout_marginLeft="20dp"
+        android:textSize="@dimen/default_text_size2"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+
+        android:text="@string/hello"
+        /> <TextView
+    android:id="@+id/helloUser"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toEndOf="@id/hello"
+    app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
+    android:textSize="@dimen/default_text_size2"
+    android:textStyle="bold"
+    android:textColor="@color/black"
+    tools:text="UserName"
+    />
+
+    <TextView
+        android:id="@+id/tvTodayIs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hello"
+        android:layout_marginLeft="20dp"
+        android:textSize="@dimen/default_text_size2"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/todayIs"
+        />
 
     <TextView
         android:id="@+id/tvToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
-        android:layout_margin="@dimen/default_padding"
-        android:textSize="@dimen/default_text_size"
+        app:layout_constraintStart_toEndOf="@id/tvTodayIs"
+        app:layout_constraintTop_toBottomOf="@+id/hello"
+        android:textSize="@dimen/default_text_size2"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:padding="@dimen/default_padding"
+
+        tools:text="Día,  00 mes 0000"
         />
     <TextView
         android:id="@+id/tvSelectProvider"

@@ -1,0 +1,38 @@
+<resources>
+    <string-array name="pais">
+        <item>España</item>
+        <item>Francia</item>
+        <item>Estados Unidos</item>
+        <item>Reino Unido</item>
+    </string-array>
+    <string-array name="codigoPais">
+        <item>es</item>
+        <item>fr</item>
+        <item>us</item>
+        <item>uk</item>
+    </string-array>
+    <string-array name="lengua">
+        <item>Español</item>
+        <item>Francés</item>
+        <item>Alemán</item>
+        <item>Inglés</item>
+    </string-array>
+    <string-array name="codigoLengua">
+        <item>es</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>en</item>
+    </string-array>
+    <string-array name="newsDate">
+        <item>Hoy</item>
+        <item>Última semana</item>
+        <item>Último mes</item>
+        <item>Desde siempre</item>
+    </string-array>
+    <string-array name="newsDateCode">
+        <item>td</item>
+        <item>lw</item>
+        <item>lm</item>
+        <item>fg</item>
+    </string-array>
+</resources>

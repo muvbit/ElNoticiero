@@ -1,0 +1,49 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/whoAreU">
+        <EditTextPreference
+            app:key="userName"
+            app:title="@string/yourName"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="email"
+            app:title="@string/yourEmail"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/filter">
+
+        <MultiSelectListPreference
+            app:key="newsCountries"
+            app:title="@string/selectCountries"
+            app:summary="@string/availableCountries"
+            app:dialogTitle="@string/selectCountriesNews"
+            app:entries="@array/pais"
+            app:entryValues="@array/codigoPais" />
+
+        <MultiSelectListPreference
+            app:key="newsLanguage"
+            app:title="@string/selectLanguages"
+            app:summary="@string/availableLanguages"
+            app:dialogTitle="@string/selectCountriesNews"
+            app:entries="@array/pais"
+            app:entryValues="@array/codigoPais" />
+
+        <SeekBarPreference
+            app:key="newsNumber"
+            app:title="@string/newsNumber"
+            app:showSeekBarValue="true"
+            app:seekBarIncrement="10"
+            app:summary="@string/newsNumberSummary"
+            app:defaultValue="10"/>
+
+        <ListPreference
+            app:key="newsDate"
+            app:title="@string/newsDate"
+            app:entries="@array/newsDate"
+            app:entryValues="@array/newsDateCode"
+            app:summary="@string/newsDateSummary"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

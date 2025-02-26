@@ -35,4 +35,18 @@
     <string name="useLocation">Usar ubicación</string>
     <string name="getMyLocation">Obtener mi ubicación</string>
     <string name="applyFilters">Aplicar filtros</string>
+    <string name="selectCountries">Selecciona país/es</string>
+    <string name="availableCountries">Lista de paises disponibles</string>
+    <string name="selectCountriesNews">Selecciona el país/es para mostrar noticias</string>
+    <string name="yourName">Tu nombre</string>
+    <string name="whoAreU">Personal</string>
+    <string name="yourEmail">Tu e-mail</string>
+    <string name="selectLanguages">Selecciona lenguaje</string>
+    <string name="availableLanguages">Lenguajes disponibles</string>
+    <string name="newsNumber">Número de noticias</string>
+    <string name="newsNumberSummary">Selecciona el número de noticias a mostrar</string>
+    <string name="newsDate">Fecha más antigua</string>
+    <string name="newsDateSummary">Selecciona la fecha más antigua a mostrar</string>
+    <string name="default_user_name">Usuario</string>
+    <string name="hello">"Hola "</string>
 </resources>

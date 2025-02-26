@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.nav_settings -> {
+                    navController.navigate(R.id.settingsFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
 
                 else -> false
             }

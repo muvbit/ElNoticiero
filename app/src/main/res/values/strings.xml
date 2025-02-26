@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="section">"Section: "</string>
     <string name="author">"Author: "</string>
-    <string name="selectYourNewsProvider">"Get Today's News: Choose Your Free Source!"</string>
+    <string name="selectYourNewsProvider">"Get your News\nChoose Your Free Source:"</string>
     <string name="todayIs">"Today is "</string>
     <string name="category">"Category: "</string>
     <string name="home">Home</string>
@@ -35,4 +35,18 @@
     <string name="useLocation">Use location</string>
     <string name="getMyLocation">Get my location</string>
     <string name="applyFilters">Apply filters</string>
+    <string name="selectCountries">Select country/es</string>
+    <string name="availableCountries">Available countries list</string>
+    <string name="selectCountriesNews">Select country or countries to get news</string>
+    <string name="yourName">Your name</string>
+    <string name="whoAreU">Personal</string>
+    <string name="yourEmail">Your e/mail</string>
+    <string name="selectLanguages">Select languages</string>
+    <string name="availableLanguages">Available languages</string>
+    <string name="newsNumber">Number of news to get</string>
+    <string name="newsNumberSummary">Select the number of news you want to get</string>
+    <string name="newsDate">Earliest date</string>
+    <string name="newsDateSummary">Select earliest date to show</string>
+    <string name="default_user_name">User</string>
+    <string name="hello">"Hello "</string>
 </resources>

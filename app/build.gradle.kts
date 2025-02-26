@@ -15,7 +15,7 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = 1
-        versionName = "1.5"
+        versionName = "1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,6 +74,10 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     kapt("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22")
+
+    //PARA PREFERENCIAS
+    implementation ("androidx.preference:preference:1.2.0")
+
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

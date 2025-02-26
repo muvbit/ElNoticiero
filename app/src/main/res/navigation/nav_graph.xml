@@ -48,9 +48,6 @@
         <argument
             android:name="newsLogo"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_newsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
 
     <fragment
@@ -61,9 +58,6 @@
         <argument
             android:name="news"
             app:argType="com.muvbit.elnoticiero.model.News" />
-        <action
-            android:id="@+id/action_detailedNewsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteNewsFragment"
@@ -87,4 +81,8 @@
             android:name="news"
             app:argType="com.muvbit.elnoticiero.model.News" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
