@@ -1,4 +1,4 @@
-package com.muvbit.elnoticiero.fragments
+package com.muvbit.elnoticiero.fragments.news
 
 import android.os.Bundle
 import android.util.Log

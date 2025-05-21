@@ -1,7 +1,6 @@
-package com.muvbit.elnoticiero.fragments
+package com.muvbit.elnoticiero.fragments.news
 
 import android.content.SharedPreferences
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

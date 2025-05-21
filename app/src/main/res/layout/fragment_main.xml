@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MainFragment">
+    tools:context=".fragments.news.MainFragment">
 
 
     <ImageView

@@ -9,4 +9,29 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#808080</color>
     <color name="light_gray">#D3D3D3</color>
+    <!-- Tonos pastel -->
+    <color name="pastel_blue_light">#A7C7E7</color>
+    <color name="pastel_mint_light">#C8E6C9</color>
+    <color name="pastel_pink_soft">#F8BBD0</color>
+    <color name="pastel_lavender_light">#D1C4E9</color>
+    <color name="pastel_yellow_soft">#FFF9C4</color>
+    <color name="pastel_peach_light">#FFCCBC</color>
+    <color name="pastel_blue_gray_very_light">#ECEFF1</color>
+    <color name="pastel_salmon_soft">#FFDAB9</color>
+    <color name="pastel_turquoise_desaturated">#AFEEEE</color>
+    <color name="pastel_cream_soft">#FFFDD0</color>
+    <color name="pastel_olive_light">#D4E4BC</color>
+    <color name="pastel_coral_soft">#FFBFB5</color>
+    <color name="pastel_sky_blue_very_pale">#CDECFC</color>
+    <color name="pastel_pearl_gray_soft">#EAE0D5</color>
+    <color name="pastel_mauve_light">#E0B0FF</color>
+    <!-- Tonos vintage -->
+    <color name="vintage_mustard_gold">#D4A017</color>
+    <color name="vintage_olive_dark">#556B2F</color>
+    <color name="vintage_terracotta_red">#B22222</color>
+    <color name="vintage_teal_muted">#008080</color>
+    <color name="vintage_burnt_orange">#CC5500</color>
+    <color name="vintage_leather_brown">#8B4513</color>
+    <color name="vintage_burgundy_wine">#800020</color>
+    <color name="vintage_ochre_yellow">#CC7722</color>
 </resources>

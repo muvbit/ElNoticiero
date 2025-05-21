@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.muvbit.elnoticiero.databinding.NewsItemBinding
-import com.muvbit.elnoticiero.fragments.NewsFragmentDirections
+import com.muvbit.elnoticiero.fragments.news.NewsFragmentDirections
 import com.muvbit.elnoticiero.model.News
 
 class NewsAdapter(private var newsList: List<News>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {

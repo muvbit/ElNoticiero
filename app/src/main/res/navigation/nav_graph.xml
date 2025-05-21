@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/firstFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.muvbit.elnoticiero.fragments.MainFragment"
+        android:name="com.muvbit.elnoticiero.fragments.news.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.muvbit.elnoticiero.fragments.NewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news">
         <action
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/detailedNewsFragment"
-        android:name="com.muvbit.elnoticiero.fragments.DetailedNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.news.DetailedNewsFragment"
         android:label="fragment_detailed_news"
         tools:layout="@layout/fragment_detailed_news">
         <argument
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteNewsFragment"
-        android:name="com.muvbit.elnoticiero.fragments.FavoriteNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.news.FavoriteNewsFragment"
         android:label="fragment_favorite_news"
         tools:layout="@layout/fragment_favorite_news">
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailedFavoriteNewsFragment"
-        android:name="com.muvbit.elnoticiero.fragments.DetailedFavoriteNewsFragment"
+        android:name="com.muvbit.elnoticiero.fragments.news.DetailedFavoriteNewsFragment"
         android:label="fragment_detailed_favorite_news"
         tools:layout="@layout/fragment_detailed_favorite_news">
         <argument
@@ -85,4 +85,13 @@
         android:id="@+id/settingsFragment"
         android:name="com.muvbit.elnoticiero.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.muvbit.elnoticiero.fragments.FirstFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_firstFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

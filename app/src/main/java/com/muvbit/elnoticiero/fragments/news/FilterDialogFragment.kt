@@ -1,4 +1,4 @@
-package com.muvbit.elnoticiero.fragments
+package com.muvbit.elnoticiero.fragments.news
 
 import android.Manifest
 import android.app.DatePickerDialog
