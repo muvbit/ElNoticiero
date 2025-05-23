@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     id("org.jetbrains.kotlin.android") // PARA ROOM
    id("androidx.navigation.safeargs.kotlin")
-    id("kotlin-kapt") // PARA ROOM
+    id("kotlin-kapt")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) // PARA ROOM
 
 }
 

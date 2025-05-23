@@ -34,4 +34,10 @@
     <color name="vintage_leather_brown">#8B4513</color>
     <color name="vintage_burgundy_wine">#800020</color>
     <color name="vintage_ochre_yellow">#CC7722</color>
+    <!-- Colores weather -->
+    <color name="card_stroke_color">#1E000000</color>
+    <color name="primaryDark">#6200EE</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#757575</color>
+    <color name="backgroundLight">#FAFAFA</color>
 </resources>

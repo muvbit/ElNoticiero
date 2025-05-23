@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    navController.navigate(R.id.mainFragment)
+                    navController.navigate(R.id.firstFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.muvbit.elnoticiero.R
+import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentFirstBinding
 
 class FirstFragment : Fragment() {
@@ -28,6 +29,8 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activityMainBinding = (activity as MainActivity).binding
+        activityMainBinding.bottomNav.menu.clear()
         binding.run {
             cvNews.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.action_firstFragment_to_mainFragment)
