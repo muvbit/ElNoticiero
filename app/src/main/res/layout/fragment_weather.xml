@@ -110,18 +110,28 @@
                     android:columnCount="2"
                     android:rowCount="3">
 
-                    <!-- Fila 1 -->
-                    <TextView
+                    <!-- Fila 1 - Humedad -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_row="0"
-                        android:drawableStart="@drawable/ic_humidity"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primaryDark"
-                        android:text="Humedad"
-                        android:textColor="@color/secondaryText"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_humidity"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Humedad"
+                            android:textColor="@color/secondaryText"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvDetailedHumidity"
@@ -134,19 +144,29 @@
                         android:textColor="@color/primaryText"
                         android:textSize="14sp" />
 
-                    <!-- Fila 2 -->
-                    <TextView
+                    <!-- Fila 2 - Viento -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_row="1"
                         android:layout_marginTop="12dp"
-                        android:drawableStart="@drawable/ic_wind"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primaryDark"
-                        android:text="Viento"
-                        android:textColor="@color/secondaryText"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_wind"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Viento"
+                            android:textColor="@color/secondaryText"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvDetailedWind"
@@ -160,19 +180,29 @@
                         android:textColor="@color/primaryText"
                         android:textSize="14sp" />
 
-                    <!-- Fila 3 -->
-                    <TextView
+                    <!-- Fila 3 - Presión -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_row="2"
                         android:layout_marginTop="12dp"
-                        android:drawableStart="@drawable/ic_pressure"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primaryDark"
-                        android:text="Presión"
-                        android:textColor="@color/secondaryText"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_pressure"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Presión"
+                            android:textColor="@color/secondaryText"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvDetailedPressure"
