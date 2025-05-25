@@ -93,5 +93,35 @@
         <action
             android:id="@+id/action_firstFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_tvFragment"
+            app:destination="@id/tvFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.muvbit.elnoticiero.fragments.tv.TvFragment"
+        android:label="fragment_tv"
+        tools:layout="@layout/fragment_tv" >
+        <action
+            android:id="@+id/action_tvFragment_to_tvPlayerFragment"
+            app:destination="@id/tvPlayerFragment">
+            <argument
+                android:name="nombre"
+                app:argType="string" />
+            <argument
+                android:name="url"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/tvPlayerFragment"
+        android:name="com.muvbit.elnoticiero.fragments.tv.TvPlayerFragment"
+        android:label="TvPlayerFragment" >
+        <argument
+            android:name="nombre"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 </navigation>

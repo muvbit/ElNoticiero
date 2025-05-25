@@ -16,7 +16,7 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = 1
-        versionName = "1.6.2"
+        versionName = "1.7.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,6 +39,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -78,6 +79,16 @@ dependencies {
 
     //PARA PREFERENCIAS
     implementation ("androidx.preference:preference:1.2.0")
+
+    //PARA CANALES TV
+    implementation ("androidx.media3:media3-exoplayer:1.3.1")
+    implementation ("androidx.media3:media3-ui:1.3.1")
+    implementation ("androidx.media3:media3-exoplayer-hls:1.3.1")
+
+    /*
+    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+    */
 
 
     implementation(libs.androidx.room.runtime)

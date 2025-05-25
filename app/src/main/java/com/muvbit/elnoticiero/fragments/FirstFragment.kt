@@ -63,6 +63,9 @@ class FirstFragment : Fragment() {
         binding.cvNews.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_firstFragment_to_mainFragment)
         )
+        binding.cvTV.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_firstFragment_to_tvFragment)
+        )
 
         checkLocationPermissionAndFetch()
     }
@@ -133,8 +136,10 @@ class FirstFragment : Fragment() {
                     Log.d("FirstFragment", "Latitud: $latitude, Longitud: $longitude")
 
                     // Obtenemos la dirección usando Geocoder en background
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        getAddressFromLocation(latitude, longitude)
+                    if (isAdded) {
+                        lifecycleScope.launch {
+                            getAddressFromLocation(latitude, longitude)
+                        }
                     }
                 } else {
                     Log.e("FirstFragment", "Ubicación es null.")
