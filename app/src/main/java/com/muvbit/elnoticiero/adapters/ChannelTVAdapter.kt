@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.muvbit.elnoticiero.R
-import com.muvbit.elnoticiero.databinding.ItemChannelBinding
+import com.muvbit.elnoticiero.databinding.ItemTvChannelBinding
 import com.muvbit.elnoticiero.model.ChannelTV
 
-class CanalTVAdapter(
+class ChannelTVAdapter(
     var canales: List<ChannelTV>,
     private val onClick: (ChannelTV) -> Unit
-) : RecyclerView.Adapter<CanalTVAdapter.CanalTVViewHolder>() {
+) : RecyclerView.Adapter<ChannelTVAdapter.CanalTVViewHolder>() {
 
-    class CanalTVViewHolder(val binding: ItemChannelBinding) : RecyclerView.ViewHolder(binding.root)
+    class CanalTVViewHolder(val binding: ItemTvChannelBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CanalTVViewHolder {
-        val binding = ItemChannelBinding.inflate(
+        val binding = ItemTvChannelBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

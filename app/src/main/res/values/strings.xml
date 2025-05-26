@@ -51,4 +51,8 @@
     <string name="hello">"Hello "</string>
     <string name="noFavoriteNews">There aren\'t favorite news yet.</string>
     <string name="fullscreen">Fullscreen</string>
+    <string name="logo_emisora">Logo radio</string>
+    <string name="favorito">Favorite</string>
+    <string name="reproducir_pausar">Play/Pause</string>
+    <string name="detener">Stop</string>
 </resources>

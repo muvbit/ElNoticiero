@@ -66,6 +66,9 @@ class FirstFragment : Fragment() {
         binding.cvTV.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_firstFragment_to_tvFragment)
         )
+        binding.cvRadio.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_firstFragment_to_radioFragment)
+        )
 
         checkLocationPermissionAndFetch()
     }

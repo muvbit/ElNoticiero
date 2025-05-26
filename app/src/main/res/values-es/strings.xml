@@ -51,4 +51,8 @@
     <string name="hello">"Hola "</string>
     <string name="noFavoriteNews">No hay noticias guardadas como favoritas.</string>
     <string name="fullscreen">Pantalla completa</string>
+    <string name="logo_emisora">Logo de la emisora</string>
+    <string name="favorito">Favorito</string>
+    <string name="reproducir_pausar">Reproducir/Pausar</string>
+    <string name="detener">Detener</string>
 </resources>

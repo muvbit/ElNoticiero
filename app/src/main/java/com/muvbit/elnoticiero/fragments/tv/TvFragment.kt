@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muvbit.elnoticiero.adapters.CanalTVAdapter
+import com.muvbit.elnoticiero.activities.MainActivity
+import com.muvbit.elnoticiero.adapters.ChannelTVAdapter
 import com.muvbit.elnoticiero.databinding.FragmentTvBinding
 import com.muvbit.elnoticiero.model.ChannelTV
 import com.muvbit.elnoticiero.network.tv.TDTChannelsResponse
@@ -22,7 +23,7 @@ class TvFragment : Fragment() {
 
     private var _binding: FragmentTvBinding? = null
     private val binding get() = _binding!!
-    private lateinit var canalAdapter: CanalTVAdapter
+    private lateinit var canalAdapter: ChannelTVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +38,14 @@ class TvFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         fetchTVChannels()
+        val mainActivity = requireActivity() as MainActivity
+        val mainActivityBinding = mainActivity.binding
+        // Borramos el menu del bottomNav y le agregamos el personalizado para este fragment
+        mainActivityBinding.bottomNav.menu.clear()
     }
 
     private fun setupRecyclerView() {
-        canalAdapter = CanalTVAdapter(emptyList()) { canal ->
+        canalAdapter = ChannelTVAdapter(emptyList()) { canal ->
             findNavController().navigate(
                 TvFragmentDirections.actionTvFragmentToTvPlayerFragment(
                     nombre = canal.nombre,

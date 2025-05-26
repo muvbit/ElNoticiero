@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_firstFragment_to_tvFragment"
             app:destination="@id/tvFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_radioFragment"
+            app:destination="@id/radioFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvFragment"
@@ -125,6 +128,37 @@
             app:argType="string" />
         <argument
             android:name="url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/radioFragment"
+        android:name="com.muvbit.elnoticiero.fragments.radio.RadioFragment"
+        android:label="fragment_radio"
+        tools:layout="@layout/fragment_radio" >
+        <action
+            android:id="@+id/action_radioFragment_to_radioPlayerFragment"
+            app:destination="@id/radioPlayerFragment" >
+            <argument
+                android:name="nombre"
+                app:argType="string" />
+            <argument
+                android:name="url"
+                app:argType="string" />
+            <argument
+                android:name="logo"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/radioPlayerFragment"
+        android:name="com.muvbit.elnoticiero.fragments.radio.RadioPlayerFragment"
+        android:label="fragment_radio_player"
+        tools:layout="@layout/fragment_radio_player" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="nombre"
             app:argType="string" />
     </fragment>
 </navigation>
