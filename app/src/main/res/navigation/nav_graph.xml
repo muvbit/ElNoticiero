@@ -160,5 +160,8 @@
         <argument
             android:name="nombre"
             app:argType="string" />
+        <argument
+            android:name="logo"
+            app:argType="string" />
     </fragment>
 </navigation>

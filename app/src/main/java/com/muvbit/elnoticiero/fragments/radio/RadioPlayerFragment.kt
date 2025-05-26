@@ -9,6 +9,8 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
@@ -16,11 +18,15 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentRadioPlayerBinding
 import com.muvbit.elnoticiero.player.AudioPlayerManager
 import com.muvbit.elnoticiero.services.RadioPlayerService
+import java.util.Random
 
 class RadioPlayerFragment : Fragment() {
 
@@ -29,6 +35,8 @@ class RadioPlayerFragment : Fragment() {
     private var player: ExoPlayer? = null
     private var emisoraUrl: String? = null
     private var emisoraNombre: String? = null
+    private var emisoraLogo: String? = null
+    private lateinit var pulseAnimation: Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +44,7 @@ class RadioPlayerFragment : Fragment() {
             val args = RadioPlayerFragmentArgs.fromBundle(it)
             emisoraUrl = args.url
             emisoraNombre = args.nombre
+            emisoraLogo = args.logo
         }
     }
 
@@ -58,6 +67,11 @@ class RadioPlayerFragment : Fragment() {
         mainActivityBinding.drawerToggle.visibility = View.GONE
 
         binding.tvNombreEmisora.text = emisoraNombre
+        Glide.with(this).apply {
+            load(emisoraLogo).into(binding.ivLogoEmisora)
+        }
+
+        pulseAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse)
 
         setupPlayer()
         setupControls()
@@ -80,9 +94,11 @@ class RadioPlayerFragment : Fragment() {
                             binding.progressBar.visibility = View.GONE
                             binding.btnPlayPause.isEnabled = true
                             updatePlayPauseButton()
+                            startLogoAnimation()
                         }
                         Player.STATE_ENDED -> {
                             updatePlayPauseButton()
+                            stopLogoAnimation()
                         }
                     }
                 }
@@ -91,6 +107,42 @@ class RadioPlayerFragment : Fragment() {
             updatePlayPauseButton()
         }
     }
+    private val random = Random()
+
+    private fun startLogoAnimation() {
+        binding.ivLogoEmisora.post(object : Runnable {
+            override fun run() {
+                if (AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
+                    val scale = 1.0f + random.nextFloat() * 0.2f // Entre 1.0 y 1.2
+                    val duration = 300L + random.nextInt(400) // Entre 300-700ms
+
+                    binding.ivLogoEmisora.animate()
+                        .scaleX(scale)
+                        .scaleY(scale)
+                        .setDuration(duration)
+                        .withEndAction {
+                            binding.ivLogoEmisora.animate()
+                                .scaleX(1f)
+                                .scaleY(1f)
+                                .setDuration(duration)
+                                .withEndAction {
+                                    if (AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
+                                        binding.ivLogoEmisora.post(this)
+                                    }
+                                }
+                        }
+                }
+            }
+        })
+    }
+
+    private fun stopLogoAnimation() {
+        binding.ivLogoEmisora.clearAnimation()
+        // Resetear tamaño por si acaso
+        binding.ivLogoEmisora.scaleX = 1f
+        binding.ivLogoEmisora.scaleY = 1f
+    }
+
 
     private fun updatePlayPauseButton() {
         val isPlaying = AudioPlayerManager.getCurrentPlayer()?.isPlaying ?: false
@@ -113,7 +165,19 @@ class RadioPlayerFragment : Fragment() {
 
         binding.btnStop.setOnClickListener {
             AudioPlayerManager.stop()
-            updatePlayPauseButton()
+
+            val mainActivity = requireActivity() as MainActivity
+            val mainActivityBinding = mainActivity.binding
+            mainActivityBinding.bottomNav.menu.clear()
+            mainActivityBinding.bottomNav.visibility = View.VISIBLE
+            mainActivityBinding.drawerToggle.visibility = View.VISIBLE
+
+            // Ejecutar con un pequeño retraso para mejor experiencia de usuario
+            binding.root.postDelayed({
+                if (!findNavController().popBackStack()) {
+                    requireActivity().finish()
+                }
+            }, 200) // 200ms de retraso
         }
     }
     private var isBound = false
@@ -141,10 +205,12 @@ class RadioPlayerFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+
         if (isBound) {
             requireActivity().unbindService(connection)
             isBound = false
         }
+
         // No detenemos el servicio para que continúe en segundo plano
     }
 
@@ -156,6 +222,7 @@ class RadioPlayerFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        stopLogoAnimation()
         // Opcional: Pausar la reproducción cuando la app está en segundo plano
         // player?.pause()
     }

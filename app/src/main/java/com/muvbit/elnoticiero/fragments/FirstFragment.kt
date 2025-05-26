@@ -270,8 +270,8 @@ class FirstFragment : Fragment() {
 
     private fun updateWeatherIcon(weatherCondition: String) {
         val iconRes = when {
-            weatherCondition.contains("soleado", ignoreCase = true) -> R.drawable.ic_weather_sunny
-            weatherCondition.contains("nublado", ignoreCase = true) -> R.drawable.ic_weather_cloudy
+            weatherCondition.contains("despejado", ignoreCase = true) -> R.drawable.ic_weather_sunny
+            weatherCondition.contains("nuboso" , ignoreCase = true) -> R.drawable.ic_weather_cloudy
             weatherCondition.contains("lluvia", ignoreCase = true) -> R.drawable.ic_weather_rainy
             else -> R.drawable.ic_weather_sunny
         }

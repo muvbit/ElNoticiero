@@ -1,10 +1,13 @@
 package com.muvbit.elnoticiero.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ItemRadioChannelBinding
+import com.muvbit.elnoticiero.fragments.radio.RadioPlayerFragment
 import com.muvbit.elnoticiero.model.ChannelRadio
 
 class ChannelRadioAdapter(
@@ -29,12 +32,14 @@ class ChannelRadioAdapter(
 
         with(holder.binding) {
             tvNombreEmisora.text = emisora.nombre
-            tvCategoria.text = emisora.categoria
-
             Glide.with(root.context)
                 .load(emisora.logo)
-                .centerCrop()
+                .placeholder(R.drawable.ic_radio)
+                .error(R.drawable.ic_radio) // Añade manejo de error
                 .into(ivLogoEmisora)
+                .clearOnDetach()
+
+            Log.d("ChannelRadioAdapter", "Logo URL: ${emisora.logo}")
 
             root.setOnClickListener { onItemClick(emisora) }
 

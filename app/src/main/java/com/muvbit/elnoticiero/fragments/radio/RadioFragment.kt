@@ -1,6 +1,7 @@
 package com.muvbit.elnoticiero.fragments.radio
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,8 +46,10 @@ class RadioFragment : Fragment() {
                     nombre = emisora.nombre,
                     url = emisora.url,
                     logo = emisora.logo
+
                 )
             )
+            Log.d("RadioFragment", "Logo seleccionada: ${emisora.logo}")
         }
 
         binding.recyclerRadio.apply {
@@ -62,30 +65,58 @@ class RadioFragment : Fragment() {
             ChannelRadio(
                 id = "rne1",
                 nombre = "Radio Nacional RNE",
-                url = "https://crtve-rne1-es.cast.addradio.de/crtve/rne1/es/mp3/high",
-                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Radio_Nacional_de_Espa%C3%B1a.svg/1200px-Radio_Nacional_de_Espa%C3%B1a.svg.png",
-                categoria = "General"
+                url = "https://rtvelivestream.rtve.es/rtvesec/rne/rne_r1_main.m3u8",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Logo_RNE.svg/1200px-Logo_RNE.svg.png",
+                categoria = "Noticias"
             ),
             ChannelRadio(
                 id = "ser",
                 nombre = "Cadena SER",
                 url = "https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3",
-                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Cadena_SER_%28marca%29.svg/1200px-Cadena_SER_%28marca%29.svg.png",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cadena_SER_Spain.svg/2560px-Cadena_SER_Spain.svg.png",
                 categoria = "Noticias"
             ),
             ChannelRadio(
                 id = "cope",
                 nombre = "COPE",
-                url = "https://wecast-b03-03.flumotion.com/copesedes/live-low.mp3",
-                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Logotipo_de_la_COPE.svg/1200px-Logotipo_de_la_COPE.svg.png",
+                url = "https://flucast09-h-cloud.flumotion.com/cope/net1.mp3",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Logo_de_la_Cadena_COPE.svg/1200px-Logo_de_la_Cadena_COPE.svg.png",
                 categoria = "Noticias"
             ),
             ChannelRadio(
-                id = "los40",
-                nombre = "Los 40",
-                url = "https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40.mp3",
-                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Los_40.svg/1200px-Los_40.svg.png",
-                categoria = "Música"
+                id = "ondacero",
+                nombre = "ONDA CERO",
+                url = "https://atres-live.ondacero.es/live/ondacero/master.m3u8",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Onda_Cero_logo.svg/1200px-Onda_Cero_logo.svg.png",
+                categoria = "Noticias"
+            ),
+            ChannelRadio(
+                id = "cataluñaradio",
+                nombre = "CATALUÑA RADIO",
+                url = "https://directes-radio-int.3catdirectes.cat/live-content/catalunya-radio-hls/master.m3u8",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Catalunya_R%C3%A0dio.svg/500px-Catalunya_R%C3%A0dio.svg.png",
+                categoria = "Noticias"
+            ),
+            ChannelRadio(
+                id = "esradio",
+                nombre = "esRadio",
+                url = "https://libertaddigital-radio-live1.flumotion.com/libertaddigital/ld-live1-high.mp3",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/EsRadio_logo.svg/2560px-EsRadio_logo.svg.png",
+                categoria = "Noticias"
+            ),
+            ChannelRadio(
+                id = "canalsur",
+                nombre = "CANAL SUR RADIO",
+                url = "https://rtva-live-radio.flumotion.com/rtva/csr.mp3",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/4/44/Canal_Sur_Radio.png",
+                categoria = "Noticias"
+            ),
+            ChannelRadio(
+                id = "radiomarca",
+                nombre = "RADIO MARCA",
+                url = "https://playerservices.streamtheworld.com/api/livestream-redirect/RADIOMARCA_NACIONAL.mp3",
+                logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/RadioMARCA.svg/1200px-RadioMARCA.svg.png",
+                categoria = "Deportes"
             )
         )
 

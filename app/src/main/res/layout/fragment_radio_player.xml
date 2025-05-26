@@ -6,10 +6,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,9 +19,13 @@
                 android:id="@+id/ivLogoEmisora"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
+
                 android:contentDescription="@string/logo_emisora"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvNombreEmisora"
@@ -30,39 +33,50 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/ivLogoEmisora" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:orientation="horizontal">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btnStop"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="24dp"
-                    android:contentDescription="@string/detener"
-                    />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnPlayPause"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginVertical="20dp"
+                android:contentDescription="@string/reproducir_pausar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNombreEmisora"
+                android:layout_marginRight="20dp"
+                />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btnPlayPause"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:contentDescription="@string/reproducir_pausar"
-                    />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnStop"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/detener"
+                app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
+                app:layout_constraintTop_toTopOf="@id/btnPlayPause"
+                android:layout_marginHorizontal="10dp"
+                android:src="@drawable/ic_stop"
+                />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintStart_toStartOf="@id/ivLogoEmisora"
+                app:layout_constraintEnd_toEndOf="@id/ivLogoEmisora"
+                app:layout_constraintTop_toTopOf="@id/ivLogoEmisora"
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogoEmisora"
+                android:progress="@integer/google_play_services_version"
+                />
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </FrameLayout>
 </layout>
