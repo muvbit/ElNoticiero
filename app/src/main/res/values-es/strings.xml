@@ -50,4 +50,5 @@
     <string name="default_user_name">Usuario</string>
     <string name="hello">"Hola "</string>
     <string name="noFavoriteNews">No hay noticias guardadas como favoritas.</string>
+    <string name="fullscreen">Pantalla completa</string>
 </resources>

@@ -6,7 +6,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <androidx.media3.ui.PlayerView
             android:id="@+id/playerView"
@@ -14,7 +15,9 @@
             android:layout_height="match_parent"
             android:keepScreenOn="true"
             app:show_buffering="when_playing"
-            app:resize_mode="fit"
+            android:layout_gravity="center"
+            app:resize_mode="zoom"
             app:use_controller="true"/>
+
     </FrameLayout>
 </layout>

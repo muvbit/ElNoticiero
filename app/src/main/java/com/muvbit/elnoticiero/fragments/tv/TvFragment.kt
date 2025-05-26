@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muvbit.elnoticiero.adapters.CanalTVAdapter
 import com.muvbit.elnoticiero.databinding.FragmentTvBinding
-import com.muvbit.elnoticiero.model.CanalTV
+import com.muvbit.elnoticiero.model.ChannelTV
 import com.muvbit.elnoticiero.network.tv.TDTChannelsResponse
 import com.muvbit.elnoticiero.network.tv.TDTChannelsService
 import kotlinx.coroutines.launch
@@ -91,7 +91,7 @@ class TvFragment : Fragment() {
         }
     }
 
-    private fun filtrarCanales(response: TDTChannelsResponse): List<CanalTV> {
+    private fun filtrarCanales(response: TDTChannelsResponse): List<ChannelTV> {
         return try {
             // Lista de canales prioritarios con sus posibles nombres alternativos
             val canalesPrioritarios = mapOf(
@@ -133,14 +133,14 @@ class TvFragment : Fragment() {
                             variantes.any { alias -> nombreLimpio.contains(alias) }
                         }?.key ?: canal.name ?: return@mapNotNull null
 
-                    CanalTV(
+                    ChannelTV(
                         nombre = nombreFinal,
                         url = streamUrl,
                         logo = canal.logo ?: ""
                     )
                 }
                 ?.distinctBy { it.nombre }
-                ?.sortedWith(compareByDescending<CanalTV> { canal ->
+                ?.sortedWith(compareByDescending<ChannelTV> { canal ->
                     when {
                         normalizar(canal.nombre).contains("24h") -> 3
                         normalizar(canal.nombre).contains("euronews") -> 2
@@ -162,91 +162,91 @@ class TvFragment : Fragment() {
 
     private fun cargarCanalesPorDefecto() {
         val canalesPorDefecto = listOf(
-            CanalTV(
+            ChannelTV(
                 "La 1",
                 "https://ztnr.rtve.es/ztnr/1688877.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Logo_TVE-Internacional.svg/2084px-Logo_TVE-Internacional.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "La 2",
                 "https://ztnr.rtve.es/ztnr/1688885.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Logo_La_2.svg/330px-Logo_La_2.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Canal 24H",
                 "https://ztnr.rtve.es/ztnr/1694255.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Logo_Canal_24_horas.svg/2399px-Logo_Canal_24_horas.svg.png"
             ),
 
             // Canales Autonómicos
-            CanalTV(
+            ChannelTV(
                 "TV3 Cataluña",
                 "https://directes-tv-cat.ccma.cat/cat/ngrp:tvi_web/playlist.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/c/c3/Logo_tv3x.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Canal Sur Andalucía",
                 "https://live-24-canalsur.interactvty.pro/9bb0f4edcb8946e79f5017ddca6c02b0/26af5488cda642ed2eddd27a6328c93b9c03e9181b9d0a825147a7d978e69202.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/1/10/Canal_Sur_Andaluc%C3%ADa_SAT.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Telemadrid",
                 "https://telemadrid-23-secure2.akamaized.net/master.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/0/01/Telemadrid-Sat-Logo_%282001-2006%29.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Aragón TV",
                 "https://cartv.streaming.aranova.es/hls/live/aragontv_canal1.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/d/d4/Logo_aragon_tv_2016.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "TV Galicia",
                 "https://crtvg-europa.flumotion.cloud/playlist.m3u8",
                 "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Television_de_Galicia.svg/640px-Television_de_Galicia.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "ETB 1 País Vasco",
                 "https://multimedia.eitb.eus/live-content/etb1hd-hls/master.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/ETB1_2022_logo.svg/2560px-ETB1_2022_logo.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "TV Extremadura",
                 "https://canalextremadura-live.flumotion.cloud/canalextremadura/live_all/playlist_dvr.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/7/7c/CEXMA_new.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Castilla La Mancha TV",
                 "https://cdnapisec.kaltura.com/p/2288691/sp/228869100/playManifest/entryId/1_sqa9madm/protocol/https/format/applehttp/a.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/CMMedia.svg/640px-CMMedia.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "TV La Rioja",
                 "https://5924d3ad0efcf.streamlock.net/riojatv/riojatvlive/playlist.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/7/7a/7_La_Rioja_Televisi%C3%B3n.png"
             ),
 
             // Canales de Noticias Internacionales
-            CanalTV(
+            ChannelTV(
                 "Euronews (Español)",
                 "https://euronews-live-spa-es.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6571/bitok/eyJzdGlkIjoiMDA0YjY0NTMtYjY2MC00ZTZkLTlkNzEtMTk3YTM3ZDZhZWIxIiwibWt0IjoiZXMiLCJjaCI6NjU3MSwicHRmIjoxfQ==/26034/euronews-es.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/3/39/Euronews._2016_alternative_logo.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "CNN Internacional",
                 "https://d3696l48vwq25d.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-0g2918mubifjw/index.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/CNN-International-Logo.svg/744px-CNN-International-Logo.svg.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Bloomberg TV",
                 "https://www.bloomberg.com/media-manifest/streams/eu.m3u8",
                 "https://w7.pngwing.com/pngs/221/526/png-transparent-bloomberg-television-hd-logo-thumbnail.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "Negocios TV",
                 "https://streaming013.gestec-video.com/hls/negociostv.m3u8",
                 "https://www.negocios.com/wp-content/uploads/2021/05/td_696x0.png"
             ),
-            CanalTV(
+            ChannelTV(
                 "El Confidencial TV",
                 "https://daqnsnf5phf17.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-sde7fypd1420w-prod/fast-channel-elconfidencial/fast-channel-elconfidencial.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Elconfidencial.jpg/330px-Elconfidencial.jpg"

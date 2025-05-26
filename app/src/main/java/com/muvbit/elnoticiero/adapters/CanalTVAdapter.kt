@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ItemChannelBinding
-import com.muvbit.elnoticiero.model.CanalTV
+import com.muvbit.elnoticiero.model.ChannelTV
 
 class CanalTVAdapter(
-    var canales: List<CanalTV>,
-    private val onClick: (CanalTV) -> Unit
+    var canales: List<ChannelTV>,
+    private val onClick: (ChannelTV) -> Unit
 ) : RecyclerView.Adapter<CanalTVAdapter.CanalTVViewHolder>() {
 
     class CanalTVViewHolder(val binding: ItemChannelBinding) : RecyclerView.ViewHolder(binding.root)
