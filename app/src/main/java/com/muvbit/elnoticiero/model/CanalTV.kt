@@ -1,6 +1,6 @@
 package com.muvbit.elnoticiero.model
 
-data class Canal(
+data class CanalTV(
 
     val nombre: String,
     val url: String,

@@ -1,5 +1,6 @@
 package com.muvbit.elnoticiero.fragments.tv
 
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.hls.HlsMediaSource
+import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentTvPlayerBinding
 
 class TvPlayerFragment : Fragment() {
@@ -45,6 +47,13 @@ class TvPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mainActivity = requireActivity() as MainActivity
+        val mainActivityBinding = mainActivity.binding
+        // Borramos el menu del bottomNav y le agregamos el personalizado para este fragment
+        mainActivityBinding.bottomNav.menu.clear()
+        mainActivityBinding.bottomNav.visibility=View.GONE
+        mainActivityBinding.drawerToggle.visibility=View.GONE
+
         canalUrl?.let { url ->
             val httpDataSourceFactory = DefaultHttpDataSource.Factory()
                 .setUserAgent("Mozilla/5.0 (Linux; Android 13; Móvil) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36")
@@ -76,6 +85,17 @@ class TvPlayerFragment : Fragment() {
                     exoPlayer.play()
                 }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Volver a permitir orientación automática cuando se sale del fragmento
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     override fun onStop() {
