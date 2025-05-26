@@ -186,7 +186,7 @@ class TvFragment : Fragment() {
             // Canales Autonómicos
             ChannelTV(
                 "TV3 Cataluña",
-                "https://directes-tv-cat.ccma.cat/cat/ngrp:tvi_web/playlist.m3u8",
+                "https://directes3-tv-cat.3catdirectes.cat/live-content/tv3-hls/master.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/c/c3/Logo_tv3x.png"
             ),
             ChannelTV(

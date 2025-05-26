@@ -29,6 +29,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -215,6 +216,31 @@ class FirstFragment : Fragment() {
             .replace("'", "")
     }
 
+    private fun isDayTime(amanecer: String, atardecer: String): Boolean {
+        return try {
+            val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val now = Calendar.getInstance()
+            val sunriseTime = dateFormat.parse(amanecer) ?: return true
+            val sunsetTime = dateFormat.parse(atardecer) ?: return true
+
+            val sunriseCal = Calendar.getInstance().apply { time = sunriseTime }
+            val sunsetCal = Calendar.getInstance().apply { time = sunsetTime }
+
+            // Comparar horas y minutos
+            now.get(Calendar.HOUR_OF_DAY) in sunriseCal.get(Calendar.HOUR_OF_DAY)..sunsetCal.get(Calendar.HOUR_OF_DAY) &&
+                    when {
+                        now.get(Calendar.HOUR_OF_DAY) == sunriseCal.get(Calendar.HOUR_OF_DAY) ->
+                            now.get(Calendar.MINUTE) >= sunriseCal.get(Calendar.MINUTE)
+                        now.get(Calendar.HOUR_OF_DAY) == sunsetCal.get(Calendar.HOUR_OF_DAY) ->
+                            now.get(Calendar.MINUTE) <= sunsetCal.get(Calendar.MINUTE)
+                        else -> true
+                    }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            true // Por defecto asumimos que es de día
+        }
+    }
+
     private suspend fun fetchWeatherData(codProv: String, codigoine: String, municipio: String, provincia: String) {
         try {
             val id = codigoine.substring(0,5)
@@ -265,16 +291,36 @@ class FirstFragment : Fragment() {
             tvMinTemp.text = "$temperaturaMinima°C"
             tvMaxTemp.text = "$temperaturaMaxima°C"
         }
-        updateWeatherIcon(estadoCielo)
+        updateWeatherIcon(estadoCielo, amanecer, atardecer)
     }
 
-    private fun updateWeatherIcon(weatherCondition: String) {
+    private fun updateWeatherIcon(weatherCondition: String, amanecer: String, atardecer: String) {
+        val isDay = isDayTime(amanecer, atardecer)
+        val condition = weatherCondition.lowercase()
+
         val iconRes = when {
-            weatherCondition.contains("despejado", ignoreCase = true) -> R.drawable.ic_weather_sunny
-            weatherCondition.contains("nuboso" , ignoreCase = true) -> R.drawable.ic_weather_cloudy
-            weatherCondition.contains("lluvia", ignoreCase = true) -> R.drawable.ic_weather_rainy
-            else -> R.drawable.ic_weather_sunny
+            // Condiciones que tienen versión día/noche
+            listOf("despejado", "soleado", "cielo claro", "sol", "sunny").any { condition.contains(it) } ->
+                if (isDay) R.drawable.ic_weather_sunny else R.drawable.ic_weather_moon
+            listOf("parcialmente nublado", "parcialmente nuboso", "partly cloudy").any { condition.contains(it) } ->
+                if (isDay) R.drawable.ic_weather_partly_cloudy else R.drawable.ic_weather_partly_cloudy_night
+
+            // Condiciones que son iguales de día y noche
+            listOf("nuboso", "nublado", "nubes", "cloudy", "cloud").any { condition.contains(it) } ->
+                R.drawable.ic_weather_cloudy
+            listOf("lluvia", "lluvioso", "llover", "rain", "rainy", "chubasco").any { condition.contains(it) } ->
+                R.drawable.ic_weather_rainy
+            listOf("tormenta", "storm", "thunderstorm", "rayos").any { condition.contains(it) } ->
+                R.drawable.ic_weather_storm
+            listOf("nieve", "nevando", "snow", "snowy").any { condition.contains(it) } ->
+                R.drawable.ic_weather_snow
+            listOf("niebla", "neblina", "bruma", "fog", "mist").any { condition.contains(it) } ->
+                R.drawable.ic_weather_fog
+
+            // Por defecto (día/noche)
+            else -> if (isDay) R.drawable.ic_weather_sunny else R.drawable.ic_weather_moon
         }
+
         binding.ivWeatherIcon.setImageResource(iconRes)
     }
 
