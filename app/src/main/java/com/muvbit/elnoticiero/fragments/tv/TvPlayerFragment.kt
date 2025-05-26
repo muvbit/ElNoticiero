@@ -19,6 +19,7 @@ import androidx.media3.ui.AspectRatioFrameLayout
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentTvPlayerBinding
+import com.muvbit.elnoticiero.player.AudioPlayerManager
 
 class TvPlayerFragment : Fragment() {
 
@@ -34,8 +35,10 @@ class TvPlayerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val args = TvPlayerFragmentArgs.fromBundle(it)
+            val autoplayer = AudioPlayerManager
             canalUrl = args.url
             canalNombre = args.nombre
+            autoplayer.stop()
         }
     }
 

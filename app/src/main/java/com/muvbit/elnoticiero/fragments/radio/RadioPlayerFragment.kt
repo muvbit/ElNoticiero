@@ -19,6 +19,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentRadioPlayerBinding
+import com.muvbit.elnoticiero.player.AudioPlayerManager
 import com.muvbit.elnoticiero.services.RadioPlayerService
 
 class RadioPlayerFragment : Fragment() {
@@ -65,52 +66,54 @@ class RadioPlayerFragment : Fragment() {
     @OptIn(UnstableApi::class)
     private fun setupPlayer() {
         emisoraUrl?.let { url ->
-            player = ExoPlayer.Builder(requireContext())
-                .build()
-                .also { exoPlayer ->
-                    val dataSourceFactory = DefaultHttpDataSource.Factory()
-                        .setUserAgent("Mozilla/5.0 (Linux; Android 13; Móvil) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36")
+            AudioPlayerManager.play(requireContext(), url, emisoraNombre ?: "")
 
-                    val mediaItem = MediaItem.fromUri(url)
-                    exoPlayer.setMediaItem(mediaItem)
-                    exoPlayer.prepare()
-                    exoPlayer.play()
-
-                    exoPlayer.addListener(object : Player.Listener {
-                        override fun onPlaybackStateChanged(playbackState: Int) {
-                            when (playbackState) {
-                                Player.STATE_BUFFERING -> {
-                                    binding.progressBar.visibility = View.VISIBLE
-                                    binding.btnPlayPause.isEnabled = false
-                                }
-                                Player.STATE_READY -> {
-                                    binding.progressBar.visibility = View.GONE
-                                    binding.btnPlayPause.isEnabled = true
-                                    binding.btnPlayPause.setImageResource(R.drawable.ic_media_pause)
-                                }
-                            }
+            // Configurar listener para actualizar UI
+            AudioPlayerManager.getCurrentPlayer()?.addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    when (playbackState) {
+                        Player.STATE_BUFFERING -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.btnPlayPause.isEnabled = false
                         }
-                    })
+                        Player.STATE_READY -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.btnPlayPause.isEnabled = true
+                            updatePlayPauseButton()
+                        }
+                        Player.STATE_ENDED -> {
+                            updatePlayPauseButton()
+                        }
+                    }
                 }
+            })
+
+            updatePlayPauseButton()
         }
+    }
+
+    private fun updatePlayPauseButton() {
+        val isPlaying = AudioPlayerManager.getCurrentPlayer()?.isPlaying ?: false
+        binding.btnPlayPause.setImageResource(
+            if (isPlaying) R.drawable.ic_media_pause else R.drawable.ic_media_play
+        )
     }
 
     private fun setupControls() {
         binding.btnPlayPause.setOnClickListener {
-            player?.let { exoPlayer ->
-                if (exoPlayer.isPlaying) {
-                    exoPlayer.pause()
-                    binding.btnPlayPause.setImageResource(R.drawable.ic_media_play)
+            AudioPlayerManager.getCurrentPlayer()?.let { player ->
+                if (player.isPlaying) {
+                    player.pause()
                 } else {
-                    exoPlayer.play()
-                    binding.btnPlayPause.setImageResource(R.drawable.ic_media_pause)
+                    player.play()
                 }
+                updatePlayPauseButton()
             }
         }
 
         binding.btnStop.setOnClickListener {
-            player?.stop()
-            binding.btnPlayPause.setImageResource(R.drawable.ic_media_play)
+            AudioPlayerManager.stop()
+            updatePlayPauseButton()
         }
     }
     private var isBound = false
@@ -147,8 +150,7 @@ class RadioPlayerFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Opcional: Detener el servicio si el fragmento se destruye
-        // radioService?.stop()
+        radioService?.stop()
         _binding = null
     }
 
