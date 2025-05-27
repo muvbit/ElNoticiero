@@ -9,6 +9,8 @@
         android:id="@+id/recyclerTv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"/>
+        android:paddingBottom="72dp"
+        android:clipToPadding="false"
+        />
 
 </FrameLayout>

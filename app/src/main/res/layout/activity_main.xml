@@ -24,7 +24,8 @@
             app:defaultNavHost="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:navGraph="@navigation/nav_graph"/>
+            app:navGraph="@navigation/nav_graph"
+            />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

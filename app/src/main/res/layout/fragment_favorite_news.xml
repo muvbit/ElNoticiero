@@ -15,7 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/news_item"/>
+        tools:listitem="@layout/news_item"
+        android:paddingBottom="72dp"
+        android:clipToPadding="false"/>
 
     <TextView
         android:id="@+id/favoriteNewsCenterMessage"

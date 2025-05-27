@@ -51,6 +51,8 @@
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toBottomOf="@+id/imgNewsLogo"
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-       tools:listitem="@layout/news_item"/>
+       tools:listitem="@layout/news_item"
+       android:paddingBottom="72dp"
+       android:clipToPadding="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
