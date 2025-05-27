@@ -7,7 +7,9 @@
     android:layout_margin="@dimen/default_padding"
     android:background="@drawable/pastel_blue_transparent"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.news.DetailedFavoriteNewsFragment">
+    tools:context=".fragments.news.DetailedFavoriteNewsFragment"
+    android:paddingBottom="80dp"
+    android:clipToPadding="false">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="72dp"
+        android:paddingBottom="250dp"
         android:clipToPadding="false"
         >
 

@@ -3,14 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/pastel_blue_transparent">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/constheader"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/logonuevo2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRadio"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="72dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="250dp"
         android:clipToPadding="false"
-        tools:listitem="@layout/item_radio_channel"/>
-
+        tools:listitem="@layout/item_radio_channel"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

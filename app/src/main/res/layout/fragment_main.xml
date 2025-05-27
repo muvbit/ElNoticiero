@@ -1,142 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@drawable/pastel_blue_transparent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     tools:context=".fragments.news.MainFragment">
-
 
     <ImageView
         android:id="@+id/imgNoticiero"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/logonuevo2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/logonoticiero_btn"
-        android:padding="@dimen/default_logo_padding"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
         android:layout_marginLeft="20dp"
+        android:text="@string/hello"
+        android:textColor="@color/black"
         android:textSize="@dimen/default_text_size2"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
 
-        android:text="@string/hello"
-        /> <TextView
-    android:id="@+id/helloUser"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintStart_toEndOf="@id/hello"
-    app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
-    android:textSize="@dimen/default_text_size2"
-    android:textStyle="bold"
-    android:textColor="@color/black"
-    tools:text="UserName"
-    />
+        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero" />
+
+    <TextView
+        android:id="@+id/helloUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/default_text_size2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/hello"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoticiero"
+        tools:text="UserName" />
 
     <TextView
         android:id="@+id/tvTodayIs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hello"
         android:layout_marginLeft="20dp"
+        android:text="@string/todayIs"
+        android:textColor="@color/black"
         android:textSize="@dimen/default_text_size2"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="@string/todayIs"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hello" />
 
     <TextView
         android:id="@+id/tvToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tvTodayIs"
-        app:layout_constraintTop_toBottomOf="@+id/hello"
+        android:textColor="@color/black"
         android:textSize="@dimen/default_text_size2"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/tvTodayIs"
+        app:layout_constraintTop_toBottomOf="@+id/hello"
 
-        tools:text="Día,  00 mes 0000"
-        />
+        tools:text="Día,  00 mes 0000" />
+
     <TextView
         android:id="@+id/tvSelectProvider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/selectYourNewsProvider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvToday"
         android:layout_margin="@dimen/default_padding"
+        android:padding="@dimen/default_padding"
+        android:text="@string/selectYourNewsProvider"
+        android:textColor="@color/black"
         android:textSize="@dimen/default_text_size"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:padding="@dimen/default_padding"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToday" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSelectProvider">
-    <ImageView
-        android:id="@+id/imgLaRazon"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/larazon_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-    <ImageView
-        android:id="@+id/imgElEspanol"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/elespanol_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgLaRazon"
-        />
-    <ImageView
-        android:id="@+id/imgABC"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/abc_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgElEspanol"
-        />
-    <ImageView
-        android:id="@+id/imgLaVanguardia"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/lavanguardia_btn"
-        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-    <ImageView
-        android:id="@+id/imgElMundo"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/elmundo_btn"
-        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
-        app:layout_constraintStart_toEndOf="@id/imgLaVanguardia"
-        />
-    <ImageView
-        android:id="@+id/imgElPais"
-        android:layout_width="@dimen/default_news_logo_btn"
-        android:layout_height="@dimen/default_news_logo_btn"
-        android:src="@drawable/elpais_btn"
-        app:layout_constraintTop_toBottomOf="@+id/imgLaRazon"
-        app:layout_constraintStart_toEndOf="@id/imgElMundo"
-        />
+
+        <ImageView
+            android:id="@+id/imgLaRazon"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/larazon_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgElEspanol"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/elespanol_btn"
+            app:layout_constraintStart_toEndOf="@id/imgLaRazon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgABC"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/abc_btn"
+            app:layout_constraintStart_toEndOf="@id/imgElEspanol"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgLaVanguardia"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/lavanguardia_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgLaRazon" />
+
+        <ImageView
+            android:id="@+id/imgElMundo"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/elmundo_btn"
+            app:layout_constraintStart_toEndOf="@id/imgLaVanguardia"
+            app:layout_constraintTop_toBottomOf="@+id/imgLaRazon" />
+
+        <ImageView
+            android:id="@+id/imgElPais"
+            android:layout_width="@dimen/default_news_logo_btn"
+            android:layout_height="@dimen/default_news_logo_btn"
+            android:src="@drawable/elpais_btn"
+            app:layout_constraintStart_toEndOf="@id/imgElMundo"
+            app:layout_constraintTop_toBottomOf="@+id/imgLaRazon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

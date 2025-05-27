@@ -13,16 +13,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
-import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.muvbit.elnoticiero.R
-import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentRadioPlayerBinding
 import com.muvbit.elnoticiero.player.AudioPlayerManager
 import com.muvbit.elnoticiero.services.RadioPlayerService
@@ -60,12 +56,6 @@ class RadioPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mainActivity = requireActivity() as MainActivity
-        val mainActivityBinding = mainActivity.binding
-        mainActivityBinding.bottomNav.menu.clear()
-        mainActivityBinding.bottomNav.visibility = View.GONE
-        mainActivityBinding.drawerToggle.visibility = View.GONE
-
         binding.tvNombreEmisora.text = emisoraNombre
         Glide.with(this).apply {
             load(emisoraLogo).into(binding.ivLogoEmisora)
@@ -90,12 +80,14 @@ class RadioPlayerFragment : Fragment() {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.btnPlayPause.isEnabled = false
                         }
+
                         Player.STATE_READY -> {
                             binding.progressBar.visibility = View.GONE
                             binding.btnPlayPause.isEnabled = true
                             updatePlayPauseButton()
                             startLogoAnimation()
                         }
+
                         Player.STATE_ENDED -> {
                             updatePlayPauseButton()
                             stopLogoAnimation()
@@ -107,6 +99,7 @@ class RadioPlayerFragment : Fragment() {
             updatePlayPauseButton()
         }
     }
+
     private val random = Random()
 
     private var isAnimating = false
@@ -130,14 +123,14 @@ class RadioPlayerFragment : Fragment() {
                         .setDuration(duration)
                         .withEndAction {
                             if (isAnimating && _binding != null &&
-                                AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
+                                AudioPlayerManager.getCurrentPlayer()?.isPlaying == true
+                            ) {
                                 binding.ivLogoEmisora.post(this)
                             }
                         }
                 }
         }
     }
-
 
 
     private fun stopLogoAnimation() {
@@ -155,7 +148,6 @@ class RadioPlayerFragment : Fragment() {
         isAnimating = true
         binding.ivLogoEmisora.post(animationRunnable)
     }
-
 
 
     private fun updatePlayPauseButton() {
@@ -180,8 +172,6 @@ class RadioPlayerFragment : Fragment() {
         binding.btnStop.setOnClickListener {
             AudioPlayerManager.stop()
 
-            updateBottomBar()
-
             // Ejecutar con un pequeño retraso para mejor experiencia de usuario
             binding.root.postDelayed({
                 if (!findNavController().popBackStack()) {
@@ -190,6 +180,7 @@ class RadioPlayerFragment : Fragment() {
             }, 200) // 200ms de retraso
         }
     }
+
     private var isBound = false
     private var radioService: RadioPlayerService? = null
     private val connection = object : ServiceConnection {
@@ -206,14 +197,6 @@ class RadioPlayerFragment : Fragment() {
         }
     }
 
-    private fun updateBottomBar(){
-        val mainActivity = requireActivity() as MainActivity
-        val mainActivityBinding = mainActivity.binding
-        mainActivityBinding.bottomNav.menu.clear()
-        mainActivityBinding.bottomNav.visibility = View.VISIBLE
-        mainActivityBinding.drawerToggle.visibility = View.VISIBLE
-    }
-
     override fun onStart() {
         super.onStart()
         Intent(requireContext(), RadioPlayerService::class.java).also { intent ->
@@ -221,9 +204,21 @@ class RadioPlayerFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopLogoAnimation()
+        player?.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startLogoAnimation()
+        player?.play()
+    }
+
     override fun onStop() {
         super.onStop()
-
+        player?.pause()
         if (isBound) {
             requireActivity().unbindService(connection)
             isBound = false
@@ -234,17 +229,9 @@ class RadioPlayerFragment : Fragment() {
 
     override fun onDestroyView() {
         stopLogoAnimation()
-        updateBottomBar()
         super.onDestroyView()
         radioService?.stop()
         _binding = null
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopLogoAnimation()
-        // Opcional: Pausar la reproducción cuando la app está en segundo plano
-        // player?.pause()
     }
 
 
