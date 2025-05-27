@@ -43,11 +43,6 @@ class ChannelRadioAdapter(
 
             root.setOnClickListener { onItemClick(emisora) }
 
-            // Icono de favorito (opcional)
-            ivFavorito.setImageResource(
-                if (emisora.esFavorita) android.R.drawable.btn_star_big_on
-                else android.R.drawable.btn_star_big_off
-            )
         }
     }
 

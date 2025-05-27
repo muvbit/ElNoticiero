@@ -55,4 +55,7 @@
     <string name="favorito">Favorito</string>
     <string name="reproducir_pausar">Reproducir/Pausar</string>
     <string name="detener">Detener</string>
+    <string name="newspaper">Prensa escrita</string>
+    <string name="tvChannels">Canales de TV</string>
+    <string name="radioChannels">Emisoras\nRadio</string>
 </resources>

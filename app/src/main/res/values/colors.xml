@@ -7,7 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparentWhite">#B4FFFFFF</color>
     <color name="gray">#808080</color>
+    <color name="grayDark">#3E3E3E</color>
     <color name="light_gray">#D3D3D3</color>
     <!-- Tonos pastel -->
     <color name="pastel_blue_light">#A7C7E7</color>
@@ -22,7 +24,7 @@
     <color name="pastel_cream_soft">#FFFDD0</color>
     <color name="pastel_olive_light">#D4E4BC</color>
     <color name="pastel_coral_soft">#FFBFB5</color>
-    <color name="pastel_sky_blue_very_pale">#CDECFC</color>
+    <color name="pastel_sky_blue_very_pale">#83CDECFC</color>
     <color name="pastel_pearl_gray_soft">#EAE0D5</color>
     <color name="pastel_mauve_light">#E0B0FF</color>
     <!-- Tonos vintage -->

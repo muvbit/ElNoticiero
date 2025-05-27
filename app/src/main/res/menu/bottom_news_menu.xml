@@ -10,6 +10,7 @@
         android:id="@+id/clear_filters"
         android:title="@string/clearFilters"
         android:icon="@drawable/clearfilters_24"
-        android:checked="false"/>
+        android:checked="false"
+        />
 
 </menu>

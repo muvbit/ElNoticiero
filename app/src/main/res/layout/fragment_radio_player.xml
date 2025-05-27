@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/pastel_blue_transparent">
 
     <data />
 
@@ -10,8 +11,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:background="@drawable/pastel_blue_transparent"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -44,35 +46,33 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginVertical="20dp"
+                android:layout_marginRight="20dp"
                 android:contentDescription="@string/reproducir_pausar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNombreEmisora"
-                android:layout_marginRight="20dp"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/tvNombreEmisora" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/btnStop"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginEnd="24dp"
                 android:contentDescription="@string/detener"
-                app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
-                app:layout_constraintTop_toTopOf="@id/btnPlayPause"
-                android:layout_marginHorizontal="10dp"
                 android:src="@drawable/ic_stop"
-                />
+                app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
+                app:layout_constraintTop_toTopOf="@id/btnPlayPause" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="24dp"
-                app:layout_constraintStart_toStartOf="@id/ivLogoEmisora"
-                app:layout_constraintEnd_toEndOf="@id/ivLogoEmisora"
-                app:layout_constraintTop_toTopOf="@id/ivLogoEmisora"
-                app:layout_constraintBottom_toBottomOf="@+id/ivLogoEmisora"
                 android:progress="@integer/google_play_services_version"
-                />
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogoEmisora"
+                app:layout_constraintEnd_toEndOf="@id/ivLogoEmisora"
+                app:layout_constraintStart_toStartOf="@id/ivLogoEmisora"
+                app:layout_constraintTop_toTopOf="@id/ivLogoEmisora" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
