@@ -109,39 +109,53 @@ class RadioPlayerFragment : Fragment() {
     }
     private val random = Random()
 
-    private fun startLogoAnimation() {
-        binding.ivLogoEmisora.post(object : Runnable {
-            override fun run() {
-                if (AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
-                    val scale = 1.0f + random.nextFloat() * 0.2f // Entre 1.0 y 1.2
-                    val duration = 300L + random.nextInt(400) // Entre 300-700ms
+    private var isAnimating = false
+    private val animationRunnable = object : Runnable {
+        override fun run() {
+            if (!isAnimating || _binding == null) return
+
+            val scale = 1.0f + random.nextFloat() * 0.2f
+            val duration = 300L + random.nextInt(400)
+
+            binding.ivLogoEmisora.animate()
+                .scaleX(scale)
+                .scaleY(scale)
+                .setDuration(duration)
+                .withEndAction {
+                    if (!isAnimating || _binding == null) return@withEndAction
 
                     binding.ivLogoEmisora.animate()
-                        .scaleX(scale)
-                        .scaleY(scale)
+                        .scaleX(1f)
+                        .scaleY(1f)
                         .setDuration(duration)
                         .withEndAction {
-                            binding.ivLogoEmisora.animate()
-                                .scaleX(1f)
-                                .scaleY(1f)
-                                .setDuration(duration)
-                                .withEndAction {
-                                    if (AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
-                                        binding.ivLogoEmisora.post(this)
-                                    }
-                                }
+                            if (isAnimating && _binding != null &&
+                                AudioPlayerManager.getCurrentPlayer()?.isPlaying == true) {
+                                binding.ivLogoEmisora.post(this)
+                            }
                         }
                 }
-            }
-        })
+        }
     }
 
+
+
     private fun stopLogoAnimation() {
+        isAnimating = false
         binding.ivLogoEmisora.clearAnimation()
-        // Resetear tamaño por si acaso
+        binding.ivLogoEmisora.animate().cancel()
         binding.ivLogoEmisora.scaleX = 1f
         binding.ivLogoEmisora.scaleY = 1f
     }
+
+
+    private fun startLogoAnimation() {
+        if (_binding == null) return
+
+        isAnimating = true
+        binding.ivLogoEmisora.post(animationRunnable)
+    }
+
 
 
     private fun updatePlayPauseButton() {
@@ -166,11 +180,7 @@ class RadioPlayerFragment : Fragment() {
         binding.btnStop.setOnClickListener {
             AudioPlayerManager.stop()
 
-            val mainActivity = requireActivity() as MainActivity
-            val mainActivityBinding = mainActivity.binding
-            mainActivityBinding.bottomNav.menu.clear()
-            mainActivityBinding.bottomNav.visibility = View.VISIBLE
-            mainActivityBinding.drawerToggle.visibility = View.VISIBLE
+            updateBottomBar()
 
             // Ejecutar con un pequeño retraso para mejor experiencia de usuario
             binding.root.postDelayed({
@@ -196,6 +206,14 @@ class RadioPlayerFragment : Fragment() {
         }
     }
 
+    private fun updateBottomBar(){
+        val mainActivity = requireActivity() as MainActivity
+        val mainActivityBinding = mainActivity.binding
+        mainActivityBinding.bottomNav.menu.clear()
+        mainActivityBinding.bottomNav.visibility = View.VISIBLE
+        mainActivityBinding.drawerToggle.visibility = View.VISIBLE
+    }
+
     override fun onStart() {
         super.onStart()
         Intent(requireContext(), RadioPlayerService::class.java).also { intent ->
@@ -215,6 +233,8 @@ class RadioPlayerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        stopLogoAnimation()
+        updateBottomBar()
         super.onDestroyView()
         radioService?.stop()
         _binding = null
