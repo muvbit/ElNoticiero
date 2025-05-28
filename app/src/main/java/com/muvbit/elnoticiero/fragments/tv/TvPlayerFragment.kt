@@ -60,7 +60,7 @@ class TvPlayerFragment : Fragment() {
         val mainActivity = requireActivity() as MainActivity
         val mainActivityBinding = mainActivity.binding
         mainActivityBinding.bottomNav.menu.clear()
-        mainActivityBinding.bottomNav.visibility = View.GONE
+        mainActivityBinding.bottomAppBar.visibility = View.GONE
         mainActivityBinding.drawerToggle.visibility = View.GONE
 
         // Guardar la orientación original

@@ -9,10 +9,15 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ActivityMainBinding
 import com.muvbit.elnoticiero.databinding.NavHeaderBinding
+import com.muvbit.elnoticiero.fragments.radio.RadioPlayerFragment
+import com.muvbit.elnoticiero.player.AudioPlayerManager
+import com.muvbit.elnoticiero.player.AudioPlayerManager.stop
+import com.muvbit.elnoticiero.services.RadioPlayerService
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import java.util.Locale
@@ -40,12 +45,25 @@ class MainActivity : AppCompatActivity() {
         // Get the NavController
         navController = navHostFragment.navController
 
-
-
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     navController.navigate(R.id.firstFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_tv -> {
+                    navController.navigate(R.id.tvFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_radio -> {
+                    navController.navigate(R.id.radioFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_news -> {
+                    navController.navigate(R.id.newsFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -57,6 +75,20 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_settings -> {
                     navController.navigate(R.id.settingsFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.nav_stop -> {
+                    (navHostFragment.childFragmentManager.primaryNavigationFragment as? RadioPlayerFragment)?.apply {
+                        stop()
+                        if (!findNavController().popBackStack()) {
+                            requireActivity().finish()
+                        }
+                    } ?: run {
+                        stop()
+                    }
+
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

@@ -59,4 +59,10 @@
     <string name="tvChannels">Canales\nTV</string>
     <string name="radioChannels">Emisoras\nRadio</string>
     <string name="stopInstruction">Pulse aquí para\ndetener reproducción\ny salir.</string>
+    <string name="player">Radio player</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="mainSettings">Main settings</string>
+    <string name="stopPlayer">Stop radio player</string>
 </resources>

@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/transparentWhite">
+
     <ImageView
         android:id="@+id/navLogo"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:src="@drawable/logo_noticiero"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="321dp"
+        android:layout_height="67dp"
+
+        android:src="@drawable/logodrawer"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="@dimen/default_padding"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/navDate"
         android:layout_width="wrap_content"
