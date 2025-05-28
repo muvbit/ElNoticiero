@@ -2,7 +2,6 @@ package com.muvbit.elnoticiero.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,13 +20,13 @@ import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentFirstBinding
 import com.muvbit.elnoticiero.network.weather.ElTiempoApiService
-import com.muvbit.elnoticiero.network.weather.Municipio
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -45,6 +44,7 @@ class FirstFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         private val service = retrofit.create(ElTiempoApiService::class.java)
+        private const val GEONAMES_USERNAME = "muvbit"
     }
 
     override fun onCreateView(
@@ -123,13 +123,6 @@ class FirstFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         fusedLocationClient.getCurrentLocation(locationRequest, cancellationToken.token)
@@ -157,64 +150,70 @@ class FirstFragment : Fragment() {
     }
 
     private suspend fun getAddressFromLocation(latitude: Double, longitude: Double) {
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
         try {
-            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-            if (addresses?.isNotEmpty() == true) {
-                val address = addresses[0]
-                val locality = address.locality ?: ""
-                val adminArea = address.adminArea ?: ""
-                Log.d("FirstFragment", "Dirección encontrada: $locality, $adminArea")
+            // Primero intentamos obtener el código INE directamente
+            val codigoIne = getCodigoIneFromCoordinates(latitude, longitude)
 
-                val postalCode = address.postalCode ?: ""
-                Log.d("FirstFragment", "Código postal: $postalCode")
-                val codProv = if (postalCode.length >= 2) postalCode.substring(0, 2) else "46" // Default Valencia
+            if (codigoIne != null) {
+                // Obtenemos los primeros 2 dígitos para el código de provincia
+                val codProv = if (codigoIne.length >= 2) codigoIne.substring(0, 2) else "46" // Default Valencia
 
-                fetchMunicipios(codProv, locality)
-            } else {
-                showDefaultLocation()
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            showDefaultLocation()
-        }
-    }
+                // Ahora obtenemos el nombre del municipio para mostrarlo (opcional)
+                val municipioInfo = getMunicipioNameFromIne(codProv, codigoIne)
 
-    private suspend fun fetchMunicipios(codProv: String, municipioName: String) {
-        try {
-            val response = service.getMunicipios(codProv)
-            if (response.municipios.isNotEmpty()) {
-                Log.d("FirstFragment", "Municipios encontrados: ${response.municipios.size}")
-                val municipio = findBestMatchMunicipio(response.municipios, municipioName)
-
-                if (municipio != null) {
-                    fetchWeatherData(codProv, municipio.CODIGOINE, municipio.NOMBRE, municipio.NOMBRE_PROVINCIA)
+                if (municipioInfo != null) {
+                    fetchWeatherData(
+                        codProv,
+                        codigoIne,
+                        municipioInfo.first,
+                        municipioInfo.second
+                    )
                 } else {
                     showDefaultLocation()
                 }
-            } else {
-                showDefaultLocation()
             }
         } catch (e: Exception) {
             e.printStackTrace()
             showDefaultLocation()
         }
     }
+    private suspend fun getCodigoIneFromCoordinates(lat: Double, lon: Double): String? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val url = "http://api.geonames.org/findNearbyPostalCodesJSON?" +
+                        "lat=$lat&lng=$lon&country=ES&username=$GEONAMES_USERNAME"
 
-    private fun findBestMatchMunicipio(municipios: List<Municipio>, targetName: String): Municipio? {
-        val normalizedTarget = normalizeName(targetName)
-        return municipios.firstOrNull { normalizeName(it.NOMBRE) == normalizedTarget }
-            ?: municipios.firstOrNull { normalizeName(it.NOMBRE).contains(normalizedTarget) }
+                val response = URL(url).readText()
+                val jsonObject = JSONObject(response)
+                val postalCodes = jsonObject.getJSONArray("postalCodes")
+
+                if (postalCodes.length() > 0) {
+                    val firstResult = postalCodes.getJSONObject(0)
+                    Log.d("FirstFragment", "Código INE: $firstResult")
+                    firstResult.getString("adminCode3")// Esto devuelve el código INE
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+    }
+    private suspend fun getMunicipioNameFromIne(codProv: String, codigoIne: String): Pair<String, String>? {
+        return try {
+            val response = service.getMunicipios(codProv)
+            Log.d("FirstFragment", "Codigo INE: $codigoIne")
+            response.municipios.firstOrNull { it.CODIGOINE.startsWith(codigoIne) }?.let {
+                Pair(it.NOMBRE, it.NOMBRE_PROVINCIA)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
-    private fun normalizeName(name: String): String {
-        return java.text.Normalizer.normalize(name, java.text.Normalizer.Form.NFD)
-            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
-            .lowercase()
-            .replace(" ", "")
-            .replace("-", "")
-            .replace("'", "")
-    }
+
 
     private fun isDayTime(amanecer: String, atardecer: String): Boolean {
         return try {
