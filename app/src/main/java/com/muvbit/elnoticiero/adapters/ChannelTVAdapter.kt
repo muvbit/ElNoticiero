@@ -40,7 +40,6 @@ class ChannelTVAdapter(
                 .clearOnDetach() // Limpia al desacoplar
 
             root.setOnClickListener {
-                println("DEBUG: Click en canal ${canal.nombre}")
                 onClick(canal)
             }
         }
