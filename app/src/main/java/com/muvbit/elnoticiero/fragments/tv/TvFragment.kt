@@ -224,12 +224,6 @@ class TvFragment : Fragment() {
                 "https://cdnapisec.kaltura.com/p/2288691/sp/228869100/playManifest/entryId/1_sqa9madm/protocol/https/format/applehttp/a.m3u8",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/CMMedia.svg/640px-CMMedia.svg.png"
             ),
-            ChannelTV(
-                "TV La Rioja",
-                "https://5924d3ad0efcf.streamlock.net/riojatv/riojatvlive/playlist.m3u8",
-                "https://upload.wikimedia.org/wikipedia/commons/7/7a/7_La_Rioja_Televisi%C3%B3n.png"
-            ),
-
             // Canales de Noticias Internacionales
             ChannelTV(
                 "Euronews (Español)",
