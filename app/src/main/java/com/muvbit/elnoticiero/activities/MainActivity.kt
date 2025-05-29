@@ -1,6 +1,4 @@
 package com.muvbit.elnoticiero.activities
-
-import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,14 +8,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ActivityMainBinding
 import com.muvbit.elnoticiero.databinding.NavHeaderBinding
 import com.muvbit.elnoticiero.fragments.radio.RadioPlayerFragment
-import com.muvbit.elnoticiero.player.AudioPlayerManager
 import com.muvbit.elnoticiero.player.AudioPlayerManager.stop
-import com.muvbit.elnoticiero.services.RadioPlayerService
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import java.util.Locale
@@ -38,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = binding.mainDrawer
         navigationView = binding.navigation
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
@@ -61,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_news -> {
-                    navController.navigate(R.id.newsFragment)
+                    navController.navigate(R.id.mainFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -101,7 +99,8 @@ class MainActivity : AppCompatActivity() {
             openDrawer()
         }
 
-    }// Close onCreate
+    }
+
 
     // Handle back button presses
     override fun onSupportNavigateUp(): Boolean {
@@ -112,6 +111,8 @@ class MainActivity : AppCompatActivity() {
         val navHeader=navigationView.getHeaderView(0)
         val navHeaderBinding : NavHeaderBinding = NavHeaderBinding.bind(navHeader)
         navHeaderBinding.navDate.text=getCurrentDate()
+        val pref= PreferenceManager.getDefaultSharedPreferences(this)
+        navHeaderBinding.helloUser.text = pref.getString("userName", getString(R.string.default_user_name)) ?: getString(R.string.default_user_name)
     }
 
     private fun getCurrentDate(): String {
@@ -122,5 +123,6 @@ class MainActivity : AppCompatActivity() {
     }
     fun openDrawer() {
         drawerLayout.openDrawer(GravityCompat.START)
+        updateNavHeader()
     }
 }

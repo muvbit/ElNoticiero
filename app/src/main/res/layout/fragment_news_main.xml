@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/pastel_blue_transparent"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.news.MainFragment">
+    tools:context=".fragments.news.NewsMainFragment">
 
     <ImageView
         android:id="@+id/imgNoticiero"

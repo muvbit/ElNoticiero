@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="section">"Sección: "</string>
     <string name="author">"Autor: "</string>
-    <string name="selectYourNewsProvider">"Las noticias de hoy!: Elige tu proveedor de noticias!"</string>
+    <string name="selectYourNewsProvider">"Las noticias de hoy!\nElige tu proveedor de noticias!"</string>
     <string name="todayIs">"Hoy es "</string>
     <string name="category">"Categoría: "</string>
     <string name="home">Inicio</string>
@@ -59,10 +59,11 @@
     <string name="tvChannels">Canales de TV</string>
     <string name="radioChannels">Emisoras\nRadio</string>
     <string name="stopInstruction">Pulse aquí para\ndetener reproducción\ny salir.</string>
-    <string name="player">Radio player</string>
+    <string name="player">Reproductor de radio</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
-    <string name="mainSettings">Main settings</string>
-    <string name="stopPlayer">Stop radio player</string>
+    <string name="mainSettings">Ajustes principales</string>
+    <string name="stopPlayer">Detener radio</string>
+    <string name="deleteAll">Borrar todas</string>
 </resources>

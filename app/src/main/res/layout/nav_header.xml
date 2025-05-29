@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="165dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/transparentWhite">
 
     <ImageView
         android:id="@+id/navLogo"
-        android:layout_width="321dp"
+        android:layout_width="350dp"
         android:layout_height="67dp"
 
         android:src="@drawable/logodrawer"
@@ -16,13 +16,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
+        android:id="@+id/hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:text="@string/hello"
+        android:textColor="@color/black"
+        android:textSize="@dimen/default_text_size2"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/helloUser"
+
+        app:layout_constraintTop_toBottomOf="@+id/navLogo" />
+
+    <TextView
+        android:id="@+id/helloUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/default_text_size2"
+        android:textStyle="bold"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navLogo"
+        android:text="@string/default_user_name"
+         />
+    <TextView
+        android:id="@+id/navTodayIs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/helloUser"
+        app:layout_constraintEnd_toStartOf="@id/navDate"
+        android:layout_marginEnd="1dp"
+        android:text="@string/todayIs"
+        />
+    <TextView
         android:id="@+id/navDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/navLogo"
+        app:layout_constraintTop_toBottomOf="@+id/helloUser"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/default_padding"
-        android:layout_marginRight="@dimen/default_padding"
+        android:layout_marginEnd="10dp"
         tools:text="Pruebaaaaa"
         />
 

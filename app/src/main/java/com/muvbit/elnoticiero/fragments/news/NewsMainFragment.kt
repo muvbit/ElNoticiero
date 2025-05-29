@@ -10,14 +10,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.R
-import com.muvbit.elnoticiero.databinding.FragmentMainBinding
+import com.muvbit.elnoticiero.databinding.FragmentNewsMainBinding
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import java.util.Locale
 
-class MainFragment : Fragment() {
+class NewsMainFragment : Fragment() {
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentNewsMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var pref : SharedPreferences
 
@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentNewsMainBinding.inflate(inflater, container, false)
         pref= PreferenceManager.getDefaultSharedPreferences(requireActivity())
 
         return binding.root
@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
 
             imgLaRazon.setOnClickListener {
                 val newsUrl = "https://www.larazon.es/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.larazon_logo
                 )
@@ -70,7 +70,7 @@ class MainFragment : Fragment() {
             }
             imgABC.setOnClickListener {
                 val newsUrl = "https://www.abc.es/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.abc_logo
                 )
@@ -78,7 +78,7 @@ class MainFragment : Fragment() {
             }
             imgElMundo.setOnClickListener {
                 val newsUrl = "https://www.elmundo.es/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.elmundo_logo
                 )
@@ -86,7 +86,7 @@ class MainFragment : Fragment() {
             }
             imgElPais.setOnClickListener {
                 val newsUrl = "https://elpais.com/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.elpais_logo
                 )
@@ -94,7 +94,7 @@ class MainFragment : Fragment() {
             }
             imgLaVanguardia.setOnClickListener {
                 val newsUrl = "https://www.lavanguardia.com/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.lavanguardia_logo
                 )
@@ -102,7 +102,7 @@ class MainFragment : Fragment() {
             }
             imgElEspanol.setOnClickListener {
                 val newsUrl = "https://www.elespanol.com/"
-                val action = MainFragmentDirections.actionMainFragmentToNewsFragment(
+                val action = NewsMainFragmentDirections.actionMainFragmentToNewsFragment(
                     newsUrl,
                     R.drawable.elespanol_logo
                 )
