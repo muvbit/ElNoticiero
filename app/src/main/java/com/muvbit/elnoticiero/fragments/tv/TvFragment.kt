@@ -58,7 +58,7 @@ class TvFragment : Fragment() {
         binding.recyclerTv.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = canalAdapter
-            setHasFixedSize(true) // Añade esto para optimización
+            setHasFixedSize(true) // Para optimizar
         }
     }
 

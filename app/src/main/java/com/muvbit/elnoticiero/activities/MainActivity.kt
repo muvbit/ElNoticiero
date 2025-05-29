@@ -39,12 +39,10 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.mainDrawer
         navigationView = binding.navigation
 
-        // Get the NavHostFragment
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        // Get the NavController
-        navController = navHostFragment.navController
 
+        navController = navHostFragment.navController
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
