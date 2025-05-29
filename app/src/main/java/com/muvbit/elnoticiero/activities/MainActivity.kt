@@ -1,5 +1,6 @@
 package com.muvbit.elnoticiero.activities
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +14,13 @@ import com.google.android.material.navigation.NavigationView
 import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.databinding.ActivityMainBinding
 import com.muvbit.elnoticiero.databinding.NavHeaderBinding
+import com.muvbit.elnoticiero.fragments.FirstFragment
+import com.muvbit.elnoticiero.fragments.SettingsFragment
+import com.muvbit.elnoticiero.fragments.news.FavoriteNewsFragment
+import com.muvbit.elnoticiero.fragments.news.NewsFragment
+import com.muvbit.elnoticiero.fragments.radio.RadioFragment
 import com.muvbit.elnoticiero.fragments.radio.RadioPlayerFragment
+import com.muvbit.elnoticiero.fragments.tv.TvFragment
 import com.muvbit.elnoticiero.player.AudioPlayerManager.stop
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
@@ -24,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+    var shouldShowBottomNav = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,34 +52,59 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    navController.navigate(R.id.firstFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is FirstFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
+                        navController.navigate(R.id.firstFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                     true
                 }
                 R.id.nav_tv -> {
-                    navController.navigate(R.id.tvFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is TvFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
+                        navController.navigate(R.id.tvFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                     true
                 }
                 R.id.nav_radio -> {
-                    navController.navigate(R.id.radioFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is RadioFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }else{
+                        navController.navigate(R.id.radioFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                     true
                 }
                 R.id.nav_news -> {
-                    navController.navigate(R.id.mainFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is NewsFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
+                        navController.navigate(R.id.mainFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                     true
                 }
 
                 R.id.nav_favorites -> {
-                    navController.navigate(R.id.favoriteNewsFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is FavoriteNewsFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
+                        navController.navigate(R.id.favoriteNewsFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                     true
                 }
                 R.id.nav_settings -> {
-                    navController.navigate(R.id.settingsFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if (navHostFragment.childFragmentManager.primaryNavigationFragment is SettingsFragment) {
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }else{
+                        navController.navigate(R.id.settingsFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+
                     true
                 }
 
@@ -99,6 +132,35 @@ class MainActivity : AppCompatActivity() {
             openDrawer()
         }
 
+    }
+
+    fun hideBottomNavigation() {
+        shouldShowBottomNav = false
+        binding.bottomAppBar.animate()
+            .translationY(binding.bottomAppBar.height.toFloat())
+            .setDuration(300)
+            .withEndAction {
+                binding.bottomAppBar.visibility = View.GONE
+            }
+            .start()
+        binding.drawerToggle.hide()
+    }
+
+    fun showBottomNavigation() {
+        shouldShowBottomNav = true
+        binding.bottomAppBar.visibility = View.VISIBLE
+        binding.bottomAppBar.animate()
+            .translationY(0f)
+            .setDuration(300)
+            .start()
+        binding.drawerToggle.show()
+    }
+    fun updateBottomNavigationVisibility() {
+        if (shouldShowBottomNav) {
+            showBottomNavigation()
+        } else {
+            hideBottomNavigation()
+        }
     }
 
 

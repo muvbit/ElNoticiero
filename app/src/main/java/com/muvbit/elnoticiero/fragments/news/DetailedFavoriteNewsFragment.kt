@@ -16,19 +16,21 @@ import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.database.NewsDatabase
 import com.muvbit.elnoticiero.database.NewsRepository
+import com.muvbit.elnoticiero.databinding.FragmentDetailedFavoriteNewsBinding
 import com.muvbit.elnoticiero.databinding.FragmentDetailedNewsBinding
+import com.muvbit.elnoticiero.databinding.FragmentFavoriteNewsBinding
 import kotlinx.coroutines.launch
 
 class DetailedFavoriteNewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailedNewsBinding
+    private lateinit var binding: FragmentDetailedFavoriteNewsBinding
     val args: DetailedFavoriteNewsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailedNewsBinding.inflate(inflater, container, false)
+        binding = FragmentDetailedFavoriteNewsBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,7 +65,7 @@ class DetailedFavoriteNewsFragment : Fragment() {
                 R.id.favoriteDelete -> {
                     lifecycleScope.launch {
                         AlertDialog.Builder(this@DetailedFavoriteNewsFragment.requireContext()).setMessage(R.string.areYouSureDeleteFromFavorites)
-                            .setPositiveButton("Sí") { _, _ ->
+                            .setPositiveButton(R.string.yes) { _, _ ->
                                 lifecycleScope.launch {
                                     favoriteNewsRepository.deleteByIdNews(news.idNews?: "")
                                     Log.d("DetailedNewsFragment", "News deleted from favorites: ${news.title}")

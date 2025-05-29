@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".fragments.news.NewsFragment"
-    android:background="@drawable/pastel_blue_transparent">
+    android:background="@drawable/pastel_blue_transparent"
+    android:paddingBottom="200dp"
+    android:clipToPadding="false"
+    >
 
    <ImageView
        android:id="@+id/imgNewsLogo"

@@ -37,7 +37,6 @@
             app:layout_anchorGravity="center"
             app:layout_anchor="@id/bottomAppBar"
             app:backgroundTint="@color/white"
-            app:hideOnScroll="true"
             />
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
@@ -66,7 +65,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
-        android:maxWidth="280dp"
+        android:maxWidth="250dp"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="150dp"
         android:layout_width="wrap_content"

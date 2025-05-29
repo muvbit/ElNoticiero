@@ -19,7 +19,7 @@
     <string name="news_deleted_from_favorites">Noticia eliminada de favoritos.</string>
     <string name="news_added_to_favorites">Noticia agregada a favoritos.</string>
     <string name="all_news_deleted_from_favorites">Todas las noticias han sido eliminadas de favoritos.</string>
-    <string name="yes">Yes</string>
+    <string name="yes">Sí</string>
     <string name="areYouSureDeleteAllFavorites">¿Estás seguro de que quieres eliminar todas las noticias de tus favoritos?</string>
     <string name="no">No</string>
     <string name="server_no_response">Error: El servidor no está disponible.\nPor favor, inténtalo de nuevo más tarde.</string>

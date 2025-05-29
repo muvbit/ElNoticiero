@@ -55,10 +55,10 @@
     <string name="favorito">Favorite</string>
     <string name="reproducir_pausar">Play/Pause</string>
     <string name="detener">Stop</string>
-    <string name="newspaper">Periódicos\nDigitales</string>
+    <string name="newspaper">Digital\nNewspapers</string>
     <string name="tvChannels">Canales\nTV</string>
     <string name="radioChannels">Emisoras\nRadio</string>
-    <string name="stopInstruction">Pulse aquí para\ndetener reproducción\ny salir.</string>
+    <string name="stopInstruction">Press here\nto stop radio\nand exit.</string>
     <string name="player">Radio player</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>

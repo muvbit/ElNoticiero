@@ -26,6 +26,9 @@ class DetailedNewsFragment : Fragment() {
     private val args: DetailedNewsFragmentArgs by navArgs()
     private lateinit var favoriteNewsRepository: NewsRepository
     private var isFavorite: Boolean = false
+    private var _binding: FragmentDetailedNewsBinding? = null
+    private lateinit var mainActivity: MainActivity
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +63,8 @@ class DetailedNewsFragment : Fragment() {
         binding.tvDate.text = news.publishedAt
         Glide.with(this).load(news.urlImage).into(binding.articleImage)
 
+
+        //mainActivity.hideBottomNavigation()
 
 
 
@@ -102,5 +107,9 @@ class DetailedNewsFragment : Fragment() {
         } else {
             binding.imgFavorite.setImageResource(R.drawable.unfavorite_icon)
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity() as MainActivity).showBottomNavigation()
     }
 }

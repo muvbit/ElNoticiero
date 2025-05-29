@@ -7,26 +7,22 @@
     android:layout_margin="@dimen/default_padding"
     android:background="@drawable/pastel_blue_transparent"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.news.DetailedFavoriteNewsFragment"
-    android:paddingBottom="80dp"
-    android:clipToPadding="false">
+    tools:context=".fragments.news.DetailedFavoriteNewsFragment">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/scrollViewDetailedNews"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="@dimen/default_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="250dp"
-        android:clipToPadding="false"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparentWhite"
-            >
+            android:layout_height="match_parent"
+            android:background="@color/transparentWhite">
 
             <TextView
                 android:id="@+id/tvCategoryTitle"
@@ -104,18 +100,35 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvArticleTitle"
                 tools:text="Fulanito" />
 
-            <TextView
-                android:id="@+id/tvArticleBody"
+            <ImageView
+                android:id="@+id/imgFavorite"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:src="@drawable/favorite_icon"
+                app:layout_constraintTop_toBottomOf="@id/tvArticleTitle"
+                app:layout_constraintStart_toStartOf="@id/articleImage"
+                />
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/default_padding"
-                app:layout_constraintTop_toBottomOf="@id/tvAuthorName"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="298dp"
-                tools:text="Esto es un texto de pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+                app:layout_constraintTop_toBottomOf="@+id/imgFavorite"
+                android:paddingBottom="500dp"
+                android:clipToPadding="false">
+                <TextView
+                    android:id="@+id/tvArticleBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:paddingBottom="200dp"
+
+                    tools:text="Esto es un texto de prueba"
+                    />
+            </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

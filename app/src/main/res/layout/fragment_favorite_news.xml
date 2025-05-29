@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.news.FavoriteNewsFragment"
-    android:background="@drawable/pastel_blue_transparent">
+    android:background="@drawable/pastel_blue_transparent"
+    android:paddingBottom="100dp"
+    android:clipToPadding="false"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoriteNewsRecyclerView"
