@@ -17,8 +17,6 @@ import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.database.NewsDatabase
 import com.muvbit.elnoticiero.database.NewsRepository
 import com.muvbit.elnoticiero.databinding.FragmentDetailedFavoriteNewsBinding
-import com.muvbit.elnoticiero.databinding.FragmentDetailedNewsBinding
-import com.muvbit.elnoticiero.databinding.FragmentFavoriteNewsBinding
 import kotlinx.coroutines.launch
 
 class DetailedFavoriteNewsFragment : Fragment() {

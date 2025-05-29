@@ -72,8 +72,8 @@ class TvPlayerFragment : Fragment() {
                 .setUserAgent("Mozilla/5.0 (Linux; Android 13; Móvil) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36")
                 .setDefaultRequestProperties(
                     mapOf(
-                        "Referer" to "https://tu-web-o-app.com",
-                        "Origin" to "https://tu-web-o-app.com"
+                        "Referer" to "https://www.muvment.com",
+                        "Origin" to "https://www.muvment.com"
                     )
                 )
 
