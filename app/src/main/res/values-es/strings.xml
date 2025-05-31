@@ -66,4 +66,8 @@
     <string name="mainSettings">Ajustes principales</string>
     <string name="stopPlayer">Detener radio</string>
     <string name="deleteAll">Borrar todas</string>
+    <string name="suscribeTitle">Contenido Premium</string>
+    <string name="suscribeMessage">Este canal está disponible en la versión premium.\n¿Deseas suscribirte?</string>
+    <string name="suscribeAcceptButton">Suscribirse</string>
+    <string name="suscribeCancelButton">Cancelar</string>
 </resources>

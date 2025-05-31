@@ -66,4 +66,8 @@
     <string name="mainSettings">Main settings</string>
     <string name="stopPlayer">Stop radio player</string>
     <string name="deleteAll">Delete all</string>
+    <string name="suscribeTitle">Contenido Premium</string>
+    <string name="suscribeMessage">This channel is only for premium suscriptions.\n¿Do you want to suscribe?</string>
+    <string name="suscribeAcceptButton">Accept</string>
+    <string name="suscribeCancelButton">Cancel</string>
 </resources>

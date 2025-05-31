@@ -7,5 +7,6 @@ data class ChannelTV(
     val esPrioritario: Boolean = false,
     val epgId: String? = null,
     val quality: String? = null,
-    val ambit: String? = null // Podemos agregar el ámbito (Generalistas, Autonómicos, etc.)
+    val ambit: String? = null,
+    val isFree: Boolean = true // Nuevo campo para canales gratuitos
 )

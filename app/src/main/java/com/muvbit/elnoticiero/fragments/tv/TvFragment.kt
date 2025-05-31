@@ -15,6 +15,7 @@ import com.muvbit.elnoticiero.model.ChannelTV
 import com.muvbit.elnoticiero.network.tv.StreamOption
 import com.muvbit.elnoticiero.network.tv.TDTChannelsResponse
 import com.muvbit.elnoticiero.network.tv.TDTChannelsService
+import com.muvbit.elnoticiero.resources.TvChannelList
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -100,12 +101,8 @@ class TvFragment : Fragment() {
     private fun filtrarCanales(response: TDTChannelsResponse): List<ChannelTV> {
         return try {
             // Canales prioritarios con nombres alternativos
-            val canalesPrioritarios = mapOf(
-                "La 1" to listOf("la1", "tve1", "tve 1", "la 1", "rtve1"),
-                "La 2" to listOf("la2", "tve2", "tve 2", "la 2", "rtve2"),
-                "Canal 24H" to listOf("24h", "canal24h", "24 horas", "canal 24h", "rtve24h"),
-                // ... otros canales prioritarios
-            )
+
+            val canalesGratuitos = TvChannelList.channels
 
             // Buscar España en la lista de países
             val spain = response.countries.find { it.name.equals("Spain", ignoreCase = true) }
@@ -119,42 +116,23 @@ class TvFragment : Fragment() {
                     }
                 }
                 ?.mapNotNull { channel ->
-                    // Seleccionar la mejor opción de stream
-                    val bestOption = channel.options
-                        .filter { isValidStreamOption(it) }
-                        .sortedWith(compareByDescending<StreamOption> {
-                            // Ordenar por resolución (HD primero)
-                            when (it.res?.lowercase()) {
-                                "uhd", "4k" -> 4
-                                "hd", "1080p" -> 3
-                                "720p" -> 2
-                                "sd", "480p" -> 1
-                                else -> 0
-                            }
-                        })
-                        .firstOrNull() ?: return@mapNotNull null
-
-                    // Normalizar nombre del canal
-                    val nombreLimpio = normalizar(channel.name)
-
-                    // Buscar coincidencia con canales prioritarios
-                    val (nombreFinal, esPrioritario) = canalesPrioritarios.entries
-                        .firstOrNull { (_, variantes) ->
-                            variantes.any { alias -> nombreLimpio.contains(alias) }
-                        }?.let { it.key to true } ?: (channel.name to false)
 
                     ChannelTV(
-                        nombre = nombreFinal,
-                        url = bestOption.url,
+                        nombre = channel.name,
+                        url = channel.options[0].url,
                         logo = channel.logo ?: "",
-                        esPrioritario = esPrioritario,
                         epgId = channel.epgId,
-                        quality = bestOption.res
+                        isFree = canalesGratuitos.any { free ->
+                            channel.name.equals(free, ignoreCase = true)
+                        }
                     )
                 }
                 ?.distinctBy { it.nombre.lowercase() }
-                ?.sortedWith(compareByDescending<ChannelTV> { it.esPrioritario }
-                    .thenBy { it.nombre })
+                ?.sortedWith(
+                    compareByDescending<ChannelTV> { it.isFree } // Gratuitos primero
+                        .thenByDescending { it.esPrioritario }
+                        .thenBy { it.nombre }
+                )
                 ?: listOf()
         } catch (e: Exception) {
             e.printStackTrace()
