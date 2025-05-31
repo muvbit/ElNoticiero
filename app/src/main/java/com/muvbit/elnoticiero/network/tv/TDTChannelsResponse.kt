@@ -1,43 +1,59 @@
 package com.muvbit.elnoticiero.network.tv
 
+import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
 
-// Respuesta completa de la API
+// network/tv/TDTChannelsResponse.kt
 data class TDTChannelsResponse(
-    val version: String,
-    val country: String,
-    val bouquets: List<Bouquet>,
-    val channels: List<TDTChannel>
+    val license: License,
+    val epg: Epg,
+    val countries: List<Country>
 )
 
-// Grupo de canales (bouquet)
-data class Bouquet(
-    val name: String,
-    val channels: List<String> // Lista de channel_id
+data class License(
+    val source: String,
+    val url: String
 )
 
-// Datos del canal
-data class TDTChannel(
-    val channel_id: String,
+data class Epg(
+    val xml: String,
+    @SerializedName("xml.gz") val xmlGz: String,
+    val json: String
+)
+
+data class Country(
     val name: String,
-    val epg_id: String?,
-    val country: String,
-    val website: String?,
+    val ambits: List<Ambit>
+)
+
+data class Ambit(
+    val name: String,
+    val channels: List<Channel>
+)
+
+data class Channel(
+    val name: String,
+    val web: String?,
     val logo: String?,
-    val streams: List<Stream>,
-    val categories: List<String>?
+    @SerializedName("epg_id") val epgId: String?,
+    val options: List<StreamOption>,
+    @SerializedName("extra_info") val extraInfo: List<String>?
 )
 
-// Stream del canal
-data class Stream(
+data class StreamOption(
+    val format: String,
     val url: String,
-    val http_referrer: String?,
-    val user_agent: String?,
-    val is_hd: Boolean = false
+    val geo2: String?,
+    val res: String?,
+    val lang: String?
 )
 
 // Interfaz para Retrofit (sin cambios)
 interface TDTChannelsService {
     @GET("lists/tv.json")
     suspend fun getTVChannels(): TDTChannelsResponse
+
+    companion object {
+        const val BASE_URL = "https://www.tdtchannels.com/"
+    }
 }

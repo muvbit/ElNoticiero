@@ -12,6 +12,7 @@ import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.adapters.ChannelTVAdapter
 import com.muvbit.elnoticiero.databinding.FragmentTvBinding
 import com.muvbit.elnoticiero.model.ChannelTV
+import com.muvbit.elnoticiero.network.tv.StreamOption
 import com.muvbit.elnoticiero.network.tv.TDTChannelsResponse
 import com.muvbit.elnoticiero.network.tv.TDTChannelsService
 import kotlinx.coroutines.launch
@@ -61,35 +62,35 @@ class TvFragment : Fragment() {
             setHasFixedSize(true) // Para optimizar
         }
     }
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(TDTChannelsService.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val tdtService by lazy {
+        retrofit.create(TDTChannelsService::class.java)
+    }
 
     private fun fetchTVChannels() {
         lifecycleScope.launch {
             try {
                 println("DEBUG: Iniciando fetchTVChannels")
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://www.tdtchannels.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val service = retrofit.create(TDTChannelsService::class.java)
-                println("DEBUG: Realizando petición a la API")
-                val response = service.getTVChannels()
-                println("DEBUG: Respuesta recibida - Canales: ${response.channels?.size ?: 0}")
+                val response = tdtService.getTVChannels()
+                println("DEBUG: Respuesta recibida - Países: ${response.countries.size}")
 
                 val canalesFiltrados = filtrarCanales(response)
                 println("DEBUG: Canales filtrados: ${canalesFiltrados.size}")
 
                 if (canalesFiltrados.isEmpty()) {
-                    println("DEBUG: Lista de canales vacía, cargando por defecto")
                     cargarCanalesPorDefecto()
                 } else {
                     canalAdapter.canales = canalesFiltrados
                     canalAdapter.notifyDataSetChanged()
-                    println("DEBUG: Adapter actualizado con ${canalesFiltrados.size} canales")
                 }
 
             } catch (e: Exception) {
-                println("DEBUG: Error al obtener canales: ${e.message}")
                 e.printStackTrace()
                 cargarCanalesPorDefecto()
             }
@@ -98,66 +99,76 @@ class TvFragment : Fragment() {
 
     private fun filtrarCanales(response: TDTChannelsResponse): List<ChannelTV> {
         return try {
-            // Lista de canales prioritarios con sus posibles nombres alternativos
+            // Canales prioritarios con nombres alternativos
             val canalesPrioritarios = mapOf(
                 "La 1" to listOf("la1", "tve1", "tve 1", "la 1", "rtve1"),
+                "La 2" to listOf("la2", "tve2", "tve 2", "la 2", "rtve2"),
                 "Canal 24H" to listOf("24h", "canal24h", "24 horas", "canal 24h", "rtve24h"),
-                "TV3" to listOf("tv3", "tv 3", "ccma tv3"),
-                "Canal Sur" to listOf("canalsur", "rtva", "canal sur"),
-                "Aragón TV" to listOf("aragontv", "aragon tv", "aragón tv"),
-                "Telemadrid" to listOf("telemadrid", "tele madrid"),
-                "Euronews" to listOf("euronews", "euro news")
+                // ... otros canales prioritarios
             )
 
-            response.channels
-                ?.filter { canal ->
-                    // Filtro básico: España y stream válido
-                    val country = canal.country?.lowercase() ?: ""
-                    (country.isBlank() || country == "esp" || country == "españa") &&
-                            !canal.name.isNullOrBlank() &&
-                            canal.streams?.any { stream ->
-                                !stream.url.isNullOrBlank() &&
-                                        stream.url.startsWith("http") &&
-                                        (stream.url.endsWith(".m3u8") || stream.url.contains("m3u8?"))
-                            } == true
+            // Buscar España en la lista de países
+            val spain = response.countries.find { it.name.equals("Spain", ignoreCase = true) }
+
+            spain?.ambits
+                ?.flatMap { ambit -> ambit.channels }
+                ?.filter { channel ->
+                    // Filtrar canales con opciones válidas
+                    channel.options.any { option ->
+                        isValidStreamOption(option)
+                    }
                 }
-                ?.mapNotNull { canal ->
-                    // Buscar el primer stream válido
-                    val streamUrl = canal.streams?.firstOrNull { stream ->
-                        !stream.url.isNullOrBlank() &&
-                                stream.url.startsWith("http") &&
-                                (stream.url.endsWith(".m3u8") || stream.url.contains("m3u8?"))
-                    }?.url ?: return@mapNotNull null
+                ?.mapNotNull { channel ->
+                    // Seleccionar la mejor opción de stream
+                    val bestOption = channel.options
+                        .filter { isValidStreamOption(it) }
+                        .sortedWith(compareByDescending<StreamOption> {
+                            // Ordenar por resolución (HD primero)
+                            when (it.res?.lowercase()) {
+                                "uhd", "4k" -> 4
+                                "hd", "1080p" -> 3
+                                "720p" -> 2
+                                "sd", "480p" -> 1
+                                else -> 0
+                            }
+                        })
+                        .firstOrNull() ?: return@mapNotNull null
 
                     // Normalizar nombre del canal
-                    val nombreLimpio = normalizar(canal.name ?: "")
+                    val nombreLimpio = normalizar(channel.name)
 
                     // Buscar coincidencia con canales prioritarios
-                    val nombreFinal = canalesPrioritarios.entries
+                    val (nombreFinal, esPrioritario) = canalesPrioritarios.entries
                         .firstOrNull { (_, variantes) ->
                             variantes.any { alias -> nombreLimpio.contains(alias) }
-                        }?.key ?: canal.name ?: return@mapNotNull null
+                        }?.let { it.key to true } ?: (channel.name to false)
 
                     ChannelTV(
                         nombre = nombreFinal,
-                        url = streamUrl,
-                        logo = canal.logo ?: ""
+                        url = bestOption.url,
+                        logo = channel.logo ?: "",
+                        esPrioritario = esPrioritario,
+                        epgId = channel.epgId,
+                        quality = bestOption.res
                     )
                 }
-                ?.distinctBy { it.nombre }
-                ?.sortedWith(compareByDescending<ChannelTV> { canal ->
-                    when {
-                        normalizar(canal.nombre).contains("24h") -> 3
-                        normalizar(canal.nombre).contains("euronews") -> 2
-                        canalesPrioritarios.keys.any { it == canal.nombre } -> 1
-                        else -> 0
-                    }
-                })
-                ?: listOf() // Si response.channels es null, retornar lista vacía
+                ?.distinctBy { it.nombre.lowercase() }
+                ?.sortedWith(compareByDescending<ChannelTV> { it.esPrioritario }
+                    .thenBy { it.nombre })
+                ?: listOf()
         } catch (e: Exception) {
             e.printStackTrace()
-            listOf() // En caso de error, retornar lista vacía
+            listOf()
         }
+    }
+
+    private fun isValidStreamOption(option: StreamOption): Boolean {
+        return option.format.equals("m3u8", ignoreCase = true) &&
+                !option.url.isNullOrBlank() &&
+                option.url.startsWith("http") &&
+                (option.url.endsWith(".m3u8") ||
+                        option.url.contains(".m3u8") ||
+                        option.url.contains("m3u8?"))
     }
 
     private fun normalizar(texto: String): String {
