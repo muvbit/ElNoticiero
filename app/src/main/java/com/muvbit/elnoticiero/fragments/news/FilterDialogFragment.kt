@@ -3,6 +3,7 @@ package com.muvbit.elnoticiero.fragments.news
 import android.Manifest
 import android.app.DatePickerDialog
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -117,6 +118,11 @@ class FilterDialogFragment : DialogFragment(), OnMapReadyCallback {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
+            datePickerDialog.setOnShowListener {
+                // Color de los botones a negro
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)?.setTextColor(Color.BLACK)
+            }
             datePickerDialog.show()
         }
     }

@@ -23,7 +23,6 @@
         android:textSize="@dimen/default_text_size2"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/helloUser"
-
         app:layout_constraintTop_toBottomOf="@+id/navLogo" />
 
     <TextView

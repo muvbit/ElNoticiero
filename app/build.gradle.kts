@@ -16,7 +16,7 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = 1
-        versionName = "1.9"
+        versionName = "1.9.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +40,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -85,7 +86,7 @@ dependencies {
     implementation ("androidx.media3:media3-ui:1.3.1")
     implementation ("androidx.media3:media3-exoplayer-hls:1.3.1")
 
-    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("com.google.android.material:material:1.12.0")
 
     /*
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")

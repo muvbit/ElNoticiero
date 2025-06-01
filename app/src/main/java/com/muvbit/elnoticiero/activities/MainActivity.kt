@@ -1,6 +1,9 @@
 package com.muvbit.elnoticiero.activities
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,12 +28,15 @@ import com.muvbit.elnoticiero.player.AudioPlayerManager.stop
 import java.text.SimpleDateFormat
 import java.util.GregorianCalendar
 import java.util.Locale
+import com.muvbit.elnoticiero.BuildConfig
+import com.muvbit.elnoticiero.databinding.NavFooterBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+
     var shouldShowBottomNav = true
 
 
@@ -38,12 +44,12 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         drawerLayout = binding.mainDrawer
         navigationView = binding.navigation
-
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
@@ -124,9 +130,9 @@ class MainActivity : AppCompatActivity() {
 
                 else -> false
             }
-        }
-        updateNavHeader()
 
+        }
+        updateNavHeaderAndFooter()
 
         binding.drawerToggle.setOnClickListener {
             openDrawer()
@@ -169,12 +175,14 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun updateNavHeader(){
+    fun updateNavHeaderAndFooter(){
         val navHeader=navigationView.getHeaderView(0)
         val navHeaderBinding : NavHeaderBinding = NavHeaderBinding.bind(navHeader)
         navHeaderBinding.navDate.text=getCurrentDate()
         val pref= PreferenceManager.getDefaultSharedPreferences(this)
         navHeaderBinding.helloUser.text = pref.getString("userName", getString(R.string.default_user_name)) ?: getString(R.string.default_user_name)
+        findViewById<TextView>(R.id.tvBuildNumVersion).text=BuildConfig.VERSION_NAME
+
     }
 
     private fun getCurrentDate(): String {
@@ -185,6 +193,6 @@ class MainActivity : AppCompatActivity() {
     }
     fun openDrawer() {
         drawerLayout.openDrawer(GravityCompat.START)
-        updateNavHeader()
+        updateNavHeaderAndFooter()
     }
 }

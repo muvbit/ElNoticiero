@@ -70,4 +70,5 @@
     <string name="suscribeMessage">This channel is only for premium suscriptions.\n¿Do you want to suscribe?</string>
     <string name="suscribeAcceptButton">Accept</string>
     <string name="suscribeCancelButton">Cancel</string>
+    <string name="allRightsReserved">©2025 Juanjo Alberola\nAll rights reserved\nmuvment.com</string>
 </resources>
