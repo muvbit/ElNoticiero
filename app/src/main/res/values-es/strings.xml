@@ -71,7 +71,7 @@
     <string name="suscribeAcceptButton">Suscribirse</string>
     <string name="suscribeCancelButton">Cancelar</string>
     <string name="allRightsReserved">©2025 Juanjo Alberola\nTodos los derechos reservados\nmuvment.com</string>
-    <string name="premium_version_enabled">TV channel premium mode enabled!</string>
-    <string name="premium_version_disabled">TV channel premium mode disabled!</string>
+    <string name="premium_version_enabled">Modo TV Premium activado!</string>
+    <string name="premium_version_disabled">Modo TV Premium desactivado!</string>
     <string name="delete">Eliminar</string>
 </resources>
