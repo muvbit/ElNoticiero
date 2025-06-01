@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/favoriteDelete"
-        android:title="Delete"
+        android:title="@string/delete"
         android:icon="@drawable/delete_one_24"
         android:checked="false"/>
     <item

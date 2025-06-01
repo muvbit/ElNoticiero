@@ -73,4 +73,5 @@
     <string name="allRightsReserved">©2025 Juanjo Alberola\nAll rights reserved\nmuvment.com</string>
     <string name="premium_version_enabled">TV channel premium mode enabled!</string>
     <string name="premium_version_disabled">TV channel premium mode disabled!</string>
+    <string name="delete">Delete</string>
 </resources>
