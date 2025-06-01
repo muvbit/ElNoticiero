@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -30,12 +31,14 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import com.muvbit.elnoticiero.BuildConfig
 import com.muvbit.elnoticiero.databinding.NavFooterBinding
+import com.muvbit.elnoticiero.resources.TvChannelList
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+    var freecount =0
 
     var shouldShowBottomNav = true
 
@@ -127,7 +130,6 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-
                 else -> false
             }
 
@@ -182,6 +184,18 @@ class MainActivity : AppCompatActivity() {
         val pref= PreferenceManager.getDefaultSharedPreferences(this)
         navHeaderBinding.helloUser.text = pref.getString("userName", getString(R.string.default_user_name)) ?: getString(R.string.default_user_name)
         findViewById<TextView>(R.id.tvBuildNumVersion).text=BuildConfig.VERSION_NAME
+        findViewById<TextView>(R.id.tvBuildNumVersion).setOnClickListener{
+            freecount++
+            if(freecount==5){
+                Toast.makeText(this,R.string.premium_version_enabled,Toast.LENGTH_SHORT).show()
+                TvChannelList.isFree=false
+            }
+            if(freecount==10){
+                Toast.makeText(this,R.string.premium_version_disabled,Toast.LENGTH_SHORT).show()
+                freecount=0
+                TvChannelList.isFree=true
+            }
+        }
 
     }
 

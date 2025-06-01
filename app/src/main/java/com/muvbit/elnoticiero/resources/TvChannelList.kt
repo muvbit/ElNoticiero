@@ -7,5 +7,6 @@ object TvChannelList {
     "TV3", "Canal Sur Andalucía", "Aragón TV", "À Punt", "Telemadrid", "Galicia",
     "ETB 1", "TV Extremadura", "Castilla-La Mancha TV", "Euronews"
     )
+    var isFree = true
 
 }

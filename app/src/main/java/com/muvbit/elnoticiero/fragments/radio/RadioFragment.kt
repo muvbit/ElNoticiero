@@ -13,11 +13,15 @@ import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.adapters.ChannelRadioAdapter
 import com.muvbit.elnoticiero.databinding.FragmentRadioBinding
 import com.muvbit.elnoticiero.model.ChannelRadio
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 class RadioFragment : Fragment() {
 
     private var _binding: FragmentRadioBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var radioAdapter: ChannelRadioAdapter
 
     override fun onCreateView(
@@ -60,7 +64,7 @@ class RadioFragment : Fragment() {
     }
 
     private fun loadRadioStations() {
-        // Lista inicial de emisoras - puedes reemplazarla luego con tu lista
+
         val emisoras = listOf(
             ChannelRadio(
                 id = "rne1",

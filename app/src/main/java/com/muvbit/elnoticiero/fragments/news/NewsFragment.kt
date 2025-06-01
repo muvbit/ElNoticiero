@@ -21,6 +21,7 @@ import com.muvbit.elnoticiero.model.NewsApiData
 import com.muvbit.elnoticiero.network.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -30,6 +31,9 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
+    private val fragmentJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + fragmentJob)
+
     private lateinit var newsAdapter: NewsAdapter
     val args: NewsFragmentArgs by navArgs()
     private var newsSource: String? = null
@@ -127,7 +131,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
         lengua: String? = null,
         coordenadas: String? = null
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+       uiScope.launch {
             try {
                 val response = RetrofitInstance.apiService.getNews(
                     number = numeroNoticias,
@@ -199,10 +203,7 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
         )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 
     private fun showFilterDialog() {
         if (!isFilterDialogVisible) {
@@ -236,5 +237,12 @@ class NewsFragment : Fragment(), FilterDialogFragment.FilterDialogListener {
 
     override fun onDialogDismissed() {
         isFilterDialogVisible = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentJob.cancel()
+        _binding = null
+
     }
 }

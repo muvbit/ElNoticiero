@@ -20,7 +20,9 @@ import com.muvbit.elnoticiero.R
 import com.muvbit.elnoticiero.activities.MainActivity
 import com.muvbit.elnoticiero.databinding.FragmentFirstBinding
 import com.muvbit.elnoticiero.network.weather.ElTiempoApiService
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -36,6 +38,8 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
+    private val fragmentJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + fragmentJob)
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
@@ -149,32 +153,37 @@ class FirstFragment : Fragment() {
             }
     }
 
-    private suspend fun getAddressFromLocation(latitude: Double, longitude: Double) {
-        try {
-            // Primero intentamos obtener el código INE directamente
-            val codigoIne = getCodigoIneFromCoordinates(latitude, longitude)
+    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
+        uiScope.launch {
+            try {
+                // Primero intentamos obtener el código INE directamente
+                val codigoIne = getCodigoIneFromCoordinates(latitude, longitude)
 
-            if (codigoIne != null) {
-                // Obtenemos los primeros 2 dígitos para el código de provincia
-                val codProv = if (codigoIne.length >= 2) codigoIne.substring(0, 2) else "46" // Default Valencia
+                if (codigoIne != null) {
+                    // Obtenemos los primeros 2 dígitos para el código de provincia
+                    val codProv = if (codigoIne.length >= 2) codigoIne.substring(
+                        0,
+                        2
+                    ) else "46" // Default Valencia
 
-                // Ahora obtenemos el nombre del municipio para mostrarlo (opcional)
-                val municipioInfo = getMunicipioNameFromIne(codProv, codigoIne)
+                    // Ahora obtenemos el nombre del municipio para mostrarlo (opcional)
+                    val municipioInfo = getMunicipioNameFromIne(codProv, codigoIne)
 
-                if (municipioInfo != null) {
-                    fetchWeatherData(
-                        codProv,
-                        codigoIne,
-                        municipioInfo.first,
-                        municipioInfo.second
-                    )
-                } else {
-                    showDefaultLocation()
+                    if (municipioInfo != null) {
+                        fetchWeatherData(
+                            codProv,
+                            codigoIne,
+                            municipioInfo.first,
+                            municipioInfo.second
+                        )
+                    } else {
+                        showDefaultLocation()
+                    }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showDefaultLocation()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            showDefaultLocation()
         }
     }
     private suspend fun getCodigoIneFromCoordinates(lat: Double, lon: Double): String? {
@@ -278,6 +287,11 @@ class FirstFragment : Fragment() {
         amanecer:String,
         atardecer:String
     ) {
+        if (!isAdded || _binding == null) {
+            // El fragmento no está añadido a una actividad o la vista ha sido destruida.
+            // No intentes actualizar la UI.
+            return
+        }
         binding.run {
             tvLocation.text = "$municipio, $provincia"
             tvCurrentDate.text = fecha
@@ -342,5 +356,6 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        fragmentJob.cancel()
     }
 }

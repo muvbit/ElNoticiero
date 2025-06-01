@@ -66,8 +66,8 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:maxWidth="250dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="120dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -79,12 +79,7 @@
         android:background="@color/white"
         app:headerLayout="@layout/nav_header"
         >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginEnd="10dp">
-        <include layout="@layout/nav_footer" />
-        </LinearLayout>
+        <include layout="@layout/nav_footer"
+            android:visibility="gone"/>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

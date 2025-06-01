@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muvbit.elnoticiero.activities.MainActivity
@@ -16,6 +15,9 @@ import com.muvbit.elnoticiero.network.tv.StreamOption
 import com.muvbit.elnoticiero.network.tv.TDTChannelsResponse
 import com.muvbit.elnoticiero.network.tv.TDTChannelsService
 import com.muvbit.elnoticiero.resources.TvChannelList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,6 +27,9 @@ class TvFragment : Fragment() {
 
     private var _binding: FragmentTvBinding? = null
     private val binding get() = _binding!!
+    private val fragmentJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + fragmentJob)
+
     private lateinit var canalAdapter: ChannelTVAdapter
 
     override fun onCreateView(
@@ -75,7 +80,7 @@ class TvFragment : Fragment() {
     }
 
     private fun fetchTVChannels() {
-        lifecycleScope.launch {
+        uiScope.launch {
             try {
                 println("DEBUG: Iniciando fetchTVChannels")
                 val response = tdtService.getTVChannels()
@@ -122,8 +127,14 @@ class TvFragment : Fragment() {
                         url = channel.options[0].url,
                         logo = channel.logo ?: "",
                         epgId = channel.epgId,
-                        isFree = canalesGratuitos.any { free ->
-                            channel.name.equals(free, ignoreCase = true)
+                        isFree = if (TvChannelList.isFree) {
+                            // Si TvChannelList.isFree es true, entonces verificamos contra la lista canalesGratuitos
+                            canalesGratuitos.any { freeChannelName ->
+                                channel.name.equals(freeChannelName, ignoreCase = true)
+                            }
+                        } else {
+                            // Si TvChannelList.isFree es false, entonces todos los canales se consideran "free" en este contexto
+                            true
                         }
                     )
                 }
@@ -250,6 +261,7 @@ class TvFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        fragmentJob.cancel()
         _binding = null
     }
 }

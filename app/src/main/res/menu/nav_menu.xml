@@ -34,7 +34,6 @@
         android:title=""
         app:actionLayout="@layout/drawer_divider"
         android:enabled="false"/>
-    <group>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings_24"
@@ -46,7 +45,12 @@
             android:icon="@drawable/ic_media_stop"
             android:title="@string/stopPlayer"
             />
+    <item
+        android:id="@+id/rights"
+        android:title=""
+        app:actionLayout="@layout/nav_footer"
+        android:enabled="false"
+        />
 
-    </group>
 
 </menu>
